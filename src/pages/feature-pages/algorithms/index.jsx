@@ -1,7 +1,11 @@
 import React from 'react'
 
 const Algorithms = () => {
-	return <h1>Algorithms</h1>
+	return (
+		<>
+			<h1>Hello</h1>
+		</>
+	)
 }
 
 export default Algorithms
