@@ -145,6 +145,7 @@ const SelectableDataGrid = () => {
     minHeight="100vh"
     >
     <div style={{/*width: 150*count_col+52*/ width: '50%' }}>
+      <h1>Шкала оценки вероятности ТЭЛА (Revised Geneva Score)</h1>
       <StyledDataGrid
         rows={products}
         columns={columns}
