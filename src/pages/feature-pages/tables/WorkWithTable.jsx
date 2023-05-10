@@ -1,6 +1,5 @@
 import React from 'react';
 import SelectableDataGrid from "./DataGrid";
-import Box from "@mui/material/Box";
 
 class App extends React.Component {
 

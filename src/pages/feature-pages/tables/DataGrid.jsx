@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid'
-import { DataGridPro } from '@mui/x-data-grid-pro'
 import {styled } from '@mui/material/styles';
 import Box from "@mui/material/Box";
 import TextField from '@mui/material/TextField';
@@ -8,33 +7,33 @@ import TextField from '@mui/material/TextField';
 import data from './Шкала оценки вероятности ТЭЛА (Revised Geneva Score).json'
 
 // for {"data":[]} json 
-var products = data.data;
+let products = data.data;
 
 // for [] json
-// var products = data;
+// let products = data;
 
-var json_data = products[0];
-var result = [];
+let json_data = products[0];
+let result = [];
 
-for(var i in json_data) 
-  result.push([i, json_data [i]]);
+for(let i in json_data) 
+  result.push([i, json_data[i]]);
 
   
-var new_prod = products.shift();
+let new_prod = products.shift();
 
 function count(obj) {
-  var i = 0;
-  for (var x in obj)
+  let i = 0;
+  for (let x in obj)
     if (obj.hasOwnProperty(x))
       i++;
   return i;
 }
 
-var count_col = count(products[0]);
+let count_col = count(products[0]);
 
 const columns = [];
 
-for (var i = 0; i < count_col; i++) {
+for (let i = 0; i < count_col; i++) {
   let header;
   if (i === 0) {
      header = {    
@@ -58,12 +57,12 @@ for (var i = 0; i < count_col; i++) {
   columns.push(header);
 }
 
-var uni_key = 0;
-for(var i in products[0]) {
+let uni_key = 0;
+for(let i in products[0]) {
   let set = new Set();
-  var have_uni_kay = 1;
+  let have_uni_kay = 1;
   set.add(products[0][i]);
-  for (var j = 1; j < products.length; j++) {
+  for (let j = 1; j < products.length; j++) {
     if (set.has(products[j][i])) {
       have_uni_kay = 0;
       break;
@@ -85,17 +84,16 @@ for(var i in products[0]) {
 // ]
 
 let arr = [];
-var ss = 4;
-let s = { str: "points" };
+let summing_col= { str: "points" };
 
 function Summ_rows() {
-  var sum = 0;
-  for (var i in products) {
-    for (var j in products[i]) {
-      for (var z in arr) {
+  let sum = 0;
+  for (let i in products) {
+    for (let j in products[i]) {
+      for (let z in arr) {
         if (products[i][j] === arr[z]) {
-          console.log(products[i][s.str]);
-          sum = sum + products[i][s.str];
+          console.log(products[i][summing_col.str]);
+          sum = sum + products[i][summing_col.str];
         }
       }
     }
@@ -107,10 +105,10 @@ function SelRowToArr (x) {
   arr = x;
 }
 
-var res = data.res;
+let res = data.res;
 
 function GetTextRes (x) {
-  for (var i in res[0]) {
+  for (let i in res[0]) {
     if (i == x) {
       return res[0][i];
     }

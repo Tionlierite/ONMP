@@ -4,9 +4,9 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Box from "@mui/material/Box";
-import { Link, Route, Switch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-const people = [
+const Names_of_tables = [
   "Акушерство",
   "ВАШ. НОШ. Шкалы оценки интенсивности боли",
   "Критерии оценки новорождённого по шкале Апгар",
@@ -35,7 +35,7 @@ function CustomizedInputBase() {
     setSearchTerm(e.target.value);
   };
   React.useEffect(() => {
-    const results = people.filter(person =>
+    const results = Names_of_tables.filter(person =>
       person.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setSearchResults(results);
@@ -65,7 +65,7 @@ function CustomizedInputBase() {
     <ul>
       {searchResults.map(item => (
         <li style={{margin: 5 }}>
-        <Link to={{ pathname: "/WorkWithTable", state: item}}>{item}</Link>
+        <Link to={{ pathname: "/tables/WorkWithTable", state: item}}>{item}</Link>
          </li>
         
       ))}

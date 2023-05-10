@@ -17,8 +17,8 @@ function App() {
 				<Route path='/algorithms' component={Algorithms} />
 				<Route path='/dictionary' component={Dictionary} />
 				<Route path='/calculator' component={Calculator} />
+				<Route path='/tables/WorkWithTable' component={WorkWithTable} />
 				<Route path='/tables' component={Tables} />
-				<Route path='/WorkWithTable' component={WorkWithTable} />
 			</Switch>
 		</div>
 	)
