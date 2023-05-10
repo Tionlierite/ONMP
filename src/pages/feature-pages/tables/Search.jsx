@@ -53,7 +53,7 @@ function CustomizedInputBase() {
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Search Google Maps"
+        placeholder="Введите название таблицы"
         inputProps={{ 'aria-label': 'search google maps' }}
         value={searchTerm}
         onChange={handleChange}
