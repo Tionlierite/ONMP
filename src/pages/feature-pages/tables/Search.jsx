@@ -6,27 +6,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import Box from "@mui/material/Box";
 import { Link } from 'react-router-dom'
 
-const Names_of_tables = [
-  "Акушерство",
-  "ВАШ. НОШ. Шкалы оценки интенсивности боли",
-  "Критерии оценки новорождённого по шкале Апгар",
-  "Нормы ЧД, ЧСС, АД у детей (в покое)",
-  "Определение площади ожогов у детей (по Lund и Browder)",
-  "Острая дыхательная недостаточность (Кассиль В.Л. 2004 г.)",
-  "Оценка мышечной силы по баллам",
-  "Параметры проведения базовой СЛР",
-  "Проктокол оценки тяжести состояния пациента (NEWS)",
-  "Промывание желудка у детей",
-  "Размеры эндотрахеальных трубок у детей",
-  "Соответствие размеров ларннгеальных трубок параметрам пациента",
-  "ХСН ШОКС (в модификации Мареева В.Ю.)",
-  "Шкала Глазго (Glasgow Coma Scale)",
-  "Шкала возбуждения-седации Ричмонда (шкала RASS)",
-  "Шкала комы FOUR",
-  "Шкала моторного дефицита LAMS (Los Angeles Motor Scale)",
-  "Шкала оценки вероятности ТЭЛА (Revised Geneva Score)"
-];
+import names_of_tables from './names_of_tables.json'
 
+let Names_of_tables = names_of_tables.sort()
 
 function CustomizedInputBase() {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -46,7 +28,7 @@ function CustomizedInputBase() {
     justifyContent="center"
     alignItems="center"
     >
-    <div style={{/*width: 150*count_col+52*/ width: '50%' }}>
+    <div style={{ width: '50%' }}>
     <Paper
       component="form"
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '80%' }}
@@ -65,8 +47,8 @@ function CustomizedInputBase() {
     <ul>
       {searchResults.map(item => (
         <li style={{margin: 5 }}>
-        <Link to={{ pathname: "/tables/WorkWithTable", state: item}}>{item}</Link>
-         </li>
+          <Link to={{ pathname: "/tables/WorkWithTable", state: item}}>{item}</Link>
+        </li>
         
       ))}
     </ul>
