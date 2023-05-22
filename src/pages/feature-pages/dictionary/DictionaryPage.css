@@ -1,0 +1,37 @@
+.dictionary-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.search-bar-inner {
+  display: flex;
+  align-items: center;
+  width: 75%;
+  margin: 0 auto;
+  cursor: text;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.search-input {
+  flex-grow: 1;
+  margin-right: 8px;
+}
+
+.search-input .MuiInputBase-root {
+  width: 100%;
+}
+
+.accordion-container {
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 16px;
+}
