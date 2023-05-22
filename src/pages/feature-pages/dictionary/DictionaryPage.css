@@ -35,3 +35,19 @@
   margin: 0 auto;
   margin-top: 16px;
 }
+
+.accordion-container ul {
+  list-style-type: none;
+}
+
+.selected-article {
+  margin-top: 16px;
+  border: 1px solid #ccc;
+  padding: 16px;
+}
+
+.page-content {
+  width: 75%;
+  margin: 0 auto;
+  text-align: left;
+}

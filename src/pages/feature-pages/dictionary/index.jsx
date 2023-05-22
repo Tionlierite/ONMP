@@ -37,30 +37,21 @@ const DictionaryPage = () => {
     }
   };
 
-  const handleItemClick = (title) => {
-    const article = articleContent.find((item) => item.title === title);
-    if (article) {
-      const { definition, symptoms } = article;
-      const content = `
-        <html>
-          <head>
-            <title>${title}</title>
-          </head>
-          <body>
-            <h2>${title}</h2>
-            <p>${definition}</p>
-            <ul>
-              ${symptoms.map((symptom, index) => `<li>${symptom}</li>`).join('')}
-            </ul>
-          </body>
-        </html>
-      `;
-      const newTab = window.open('', '_blank');
-      newTab.document.write(content);
-      newTab.document.close();
+  const handleItemClick = (category, title, event) => {
+    const foundArticle = articleContent.find(
+      (item) => item.category === category && item.title === title
+    );
+
+    event.preventDefault();
+    let articleUrl = null;
+
+    if (foundArticle) {
+      articleUrl = `/dictionary/article/${title}`;
     } else {
-      alert('Статья не найдена');
+      articleUrl = "/dictionary/article-not-found";
     }
+    
+    window.open(articleUrl, "_blank");
   };
 
   const handleToggleAllAccordions = () => {
@@ -82,42 +73,53 @@ const DictionaryPage = () => {
   });
 
   return (
-	<div className="dictionary-page">
-		<div className="search-bar">
-			<div className="search-bar-inner">
-				<InputBase
-					className="search-input"
-         			placeholder="Поиск по названию статьи"
-          			value={searchValue}
-          			onChange={handleSearchChange}
-        		/>
-				<SearchIcon />
-        		<Button onClick={handleToggleAllAccordions}>
-          			{expandedAccordions.length === categoryData.length ? 'Закрыть все' : 'Открыть/Закрыть все'}
-        		</Button>
-      		</div>
-    	</div>
+    <div className="dictionary-page">
+      <div className="search-bar">
+        <div className="search-bar-inner">
+          <InputBase
+            className="search-input"
+            placeholder="Поиск по названию статьи"
+            value={searchValue}
+            onChange={handleSearchChange}
+          />
+          <SearchIcon />
+          <Button onClick={handleToggleAllAccordions}>
+            {expandedAccordions.length === categoryData.length ? 'Закрыть все' : 'Открыть/Закрыть все'}
+          </Button>
+        </div>
+      </div>
 
-	  <div className="accordion-container">
+      <div className="accordion-container">
         {filteredCategoryData.map((category) => (
           <Accordion
-          key={category.category}
-          expanded={expandedAccordions.includes(category.category)}
-          onChange={handleAccordionChange(category.category)}
-        >
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            {category.category}
-          </AccordionSummary>
-          <AccordionDetails>
-            <ul>
-              {category.title.map((title) => (
-                <li key={title} onClick={() => handleItemClick(title)}>
-                  {title}
-                </li>
-              ))}
-            </ul>
-          </AccordionDetails>
-        </Accordion>
+            key={category.category}
+            expanded={expandedAccordions.includes(category.category)}
+            onChange={handleAccordionChange(category.category)}
+          >
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              {category.category}
+            </AccordionSummary>
+            <AccordionDetails>
+              <ul>
+                {category.title.map((title) => (
+                  <li 
+                    key={title}
+                    onClick={(event) =>
+                      handleItemClick(category.category, title, event)
+                    }
+                  >
+                  <a
+                    href={`/dictionary/article/${title}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {title}
+                  </a>
+                  </li>
+                ))}
+              </ul>
+            </AccordionDetails>
+          </Accordion>
         ))}
       </div>
     </div>
