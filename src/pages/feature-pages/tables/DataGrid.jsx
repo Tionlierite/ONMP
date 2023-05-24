@@ -4,9 +4,10 @@ import { DataGrid } from '@mui/x-data-grid'
 import {styled } from '@mui/material/styles';
 import Box from "@mui/material/Box";
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 import data from './Шкала оценки вероятности ТЭЛА (Revised Geneva Score).json'
-import App from './WorkWithTable'
 
 let arr_rows = data.data;
 
@@ -16,7 +17,6 @@ let result = [];
 for(let i in json_data) 
   result.push([i, json_data[i]]);
 
-  
 let new_prod = arr_rows.shift();
 
 function count(obj) {
@@ -115,6 +115,14 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   }
 }));
 
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText('#27B49A'),
+  backgroundColor: '#27B49A',
+  '&:hover': {
+    backgroundColor: '#27B49A',
+  },
+}));
+
 const SelectableDataGrid = (props) => {
 
   // const [tableData, setTableData] = useState([])
@@ -132,7 +140,6 @@ const SelectableDataGrid = (props) => {
     display="flex"
     justifyContent="center"
     alignItems="center"
-    minHeight="100vh"
     >
     <div style={{ width: '50%' }}>
 	  <h2>Нажатое название таблицы - {props.name_of_table}, по нему делаем API-запрос на получение таблицы</h2>
@@ -158,13 +165,16 @@ const SelectableDataGrid = (props) => {
         selectionModel={selectionModel}
       />
       {SelRowToArr(selectionModel)}
-      {console.log(arr)}
-      {<h1>Результат: </h1>}
-      <TextField
-        id="outlined-controlled"
-        label="Сумма"
-        value={Summ_rows() + " баллов - " + GetTextRes(Summ_rows())}
-      />
+      <h1>Результат: </h1>
+      <Stack spacing={3} direction="column" width={'50%'}>
+        <TextField
+          id="outlined-controlled"
+          label="Сумма"
+          value={Summ_rows() + " баллов - " + GetTextRes(Summ_rows())}
+        />
+        <ColorButton variant="contained">Сохранить</ColorButton>
+      </Stack>
+      
     </div>
     </Box>
   )
