@@ -8,7 +8,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import {InputBase, IconButton, Snackbar} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-//import SearchComponent from './Search';
 import {data} from "./MOC_DATA.jsx";
 
 const AlgorithmsPage = () => {
