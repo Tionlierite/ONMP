@@ -1,16 +1,17 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
-import { articleContent } from './mockData-article';
+const ArticlePage = () => {
+  const [articleData, setArticleData] = useState(null);
 
-import './DictionaryPage.css';
+  useEffect(() => {
+    const storedData = sessionStorage.getItem('articleData');
+    if (storedData) {
+      const data = JSON.parse(storedData);
+      setArticleData(data);
+    }
+  }, []);
 
-const ArticlePage = ( ) => {
-  const { title } = useParams();
-
-  const article = articleContent.find((item) => item.title === title);
-
-  if (!article) {
+  if (!articleData) {
     return (
       <div className="page-content">
         <h2>Статья не найдена</h2>
@@ -19,17 +20,44 @@ const ArticlePage = ( ) => {
     );
   }
 
-  const { definition, symptoms } = article;
+  const { tag, description, symptomps, period, forms, formDescriptions, formSymptoms } = articleData;
 
   return (
     <div className="page-content">
-      <h2>{title}</h2>
-      <p>{definition}</p>
-      <ul>
-        {symptoms.map((symptom, index) => (
-          <li key={index}>{symptom}</li>
-        ))}
-      </ul>
+      <h2>{tag}</h2>
+      <h1>{articleData.title}</h1>
+      <p>{description}</p>
+      {period && <p>{period}</p>}
+      {symptomps && symptomps[0] && (
+        <div>
+          <strong>Симптомы:</strong>
+          <ul>
+            {symptomps.map((symptom, index) => (
+              <li key={index}>{symptom}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {forms && forms[0] && (
+        <p>
+          <strong>Формы:</strong> {forms.join(', ')}
+        </p>
+      )}
+      {formDescriptions && formDescriptions[0] && (
+        <p>
+          <strong>Описания форм:</strong> {formDescriptions.join(', ')}
+        </p>
+      )}
+      {formSymptoms && formSymptoms[0] && (
+        <div>
+          <strong>Симптомы форм:</strong>
+          <ul>
+            {formSymptoms.map((symptom, index) => (
+              <li key={index}>{symptom}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

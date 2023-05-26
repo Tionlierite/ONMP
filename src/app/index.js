@@ -15,7 +15,7 @@ function App() {
 			<Switch>
 				<Route path='/' exact component={Home} />
 				<Route path='/algorithms' component={Algorithms} />
-				<Route path='/dictionary/article/:title' component={ArticlePage} />
+				<Route path="/dictionary/article/:title" component={ArticlePage} />
 				<Route exact path="/dictionary/article-not-found" component={ArticlePage} />
 				<Route path='/dictionary' component={Dictionary} />
 				<Route path='/calculator' component={Calculator} />
