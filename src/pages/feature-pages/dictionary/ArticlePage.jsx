@@ -23,6 +23,7 @@ const ArticlePage = () => {
   const { tag, description, symptomps, period, forms, formDescriptions, formSymptoms } = articleData;
 
   return (
+    <div className="dictionary-page">
     <div className="page-content">
       <h2>{tag}</h2>
       <h1>{articleData.title}</h1>
@@ -58,6 +59,7 @@ const ArticlePage = () => {
           </ul>
         </div>
       )}
+    </div>
     </div>
   );
 };

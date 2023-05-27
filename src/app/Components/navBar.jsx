@@ -1,23 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import HomeIcon from '@mui/icons-material/Home';
+import './navBar.css';
 
 const NavBar = () => {
 	return (
-		<ul>
+		<ul className="navbar">
 			<li style={{ display: 'inline', margin: 5 }}>
-				<Link to='/'>Домой</Link>
+				<Link to='/'><HomeIcon className="home-icon" /></Link>
 			</li>
 			<li style={{ display: 'inline', margin: 5 }}>
-				<Link to='/algorithms'>Алгоритмы</Link>
+				<Link to='/algorithms'><strong>Алгоритмы</strong></Link>
 			</li>
 			<li style={{ display: 'inline', margin: 5 }}>
-				<Link to='/dictionary'>Справочник</Link>
+				<Link to='/dictionary'><strong>Справочник</strong></Link>
 			</li>
 			<li style={{ display: 'inline', margin: 5 }}>
-				<Link to='/calculator'>Калькулятор</Link>
+				<Link to='/calculator'><strong>Калькулятор</strong></Link>
 			</li>
 			<li style={{ display: 'inline', margin: 5 }}>
-				<Link to='/tables'>Таблицы</Link>
+				<Link to='/tables'><strong>Таблицы</strong></Link>
 			</li>
 		</ul>
 	)

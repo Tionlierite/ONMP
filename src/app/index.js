@@ -8,9 +8,11 @@ import Dictionary from '../pages/feature-pages/dictionary'
 import Tables from '../pages/feature-pages/tables'
 import ArticlePage from '../pages/feature-pages/dictionary/ArticlePage';
 
+import './styles.css';
+
 function App() {
 	return (
-		<div>
+		<div className="gradientBackground">
 			<NavBar />
 			<Switch>
 				<Route path='/' exact component={Home} />

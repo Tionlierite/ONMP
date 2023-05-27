@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Accordion, AccordionSummary, AccordionDetails, Button, InputBase } from '@mui/material';
+import { useHistory, Link } from 'react-router-dom';
+import { Accordion, AccordionSummary, AccordionDetails, Button, InputBase, IconButton } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SearchIcon from '@mui/icons-material/Search';
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
+import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import './DictionaryPage.css';
+import { createArticleData } from './ArticleModel';
 
 const DictionaryPage = () => {
   const history = useHistory();
@@ -49,49 +53,60 @@ const DictionaryPage = () => {
     setExpandedAccordions(filteredAccordions);
   };
 
+  const handleClearSearch = () => {
+    setSearchValue('');
+    setSearchQuery('');
+    setFilteredTitles([]);
+    setExpandedAccordions([]);
+  };
+
   const handleAccordionChange = (tag) => (event, isExpanded) => {
     const isFilteredAccordion = expandedAccordions.includes(tag);
+    let updatedAccordions = [];
 
     if (isExpanded && !isFilteredAccordion) {
-      setExpandedAccordions((prevAccordions) => [...prevAccordions, tag]);
+      updatedAccordions = [...expandedAccordions, tag];
     } else if (!isExpanded && isFilteredAccordion) {
-      setExpandedAccordions((prevAccordions) =>
-        prevAccordions.filter((accordion) => accordion !== tag)
+      updatedAccordions = expandedAccordions.filter(
+        (accordion) => accordion !== tag
       );
     }
 
+    setExpandedAccordions(updatedAccordions);
+
     const filteredTitles = Object.keys(apiData)
       .filter((key) => key.toLowerCase().includes(searchValue.toLowerCase()))
-      .filter((key) => apiData[key].tag === tag && key.toLowerCase().includes(searchValue.toLowerCase()));
+      .filter((key) => {
+        const accordionTag = apiData[key].tag;
+        return (
+          (expandedAccordions.includes(accordionTag) &&
+            key.toLowerCase().includes(searchValue.toLowerCase())) ||
+          (isExpanded && accordionTag === tag)
+        );
+      });
+
     setFilteredTitles(filteredTitles);
   };
 
   const handleItemClick = (tag, title, event) => {
     event.preventDefault();
+    const articleData = createArticleData(title, apiData);
 
-    const articleData = {
-      tag: apiData[title].tag,
-      title: title,
-      description: apiData[title].description,
-      symptomps: apiData[title].symptomps,
-      period: apiData[title].period,
-      forms: apiData[title].forms,
-      formDescriptions: apiData[title]['form descriptions'],
-      formSymptoms: apiData[title]['form symptomps'],
-    };
-  
     if (apiData[title]) {
       sessionStorage.setItem('articleData', JSON.stringify(articleData));
       const url = `/dictionary/article/${encodeURIComponent(title)}`;
-  
-      window.open(url, '_blank');
+
+      const newWindow = window.open(url, '_blank');
+      newWindow.opener = null;
     } else {
       history.push('/dictionary/article-not-found');
     }
-  };  
+  };
 
   const handleToggleAllAccordions = () => {
-    if (expandedAccordions.length === Object.keys(apiData).length) {
+    const allAccordionsOpen = expandedAccordions.length === Object.keys(apiData).length;
+
+    if (allAccordionsOpen) {
       setExpandedAccordions([]);
     } else {
       setExpandedAccordions(Object.keys(apiData).map((key) => apiData[key].tag));
@@ -99,7 +114,15 @@ const DictionaryPage = () => {
 
     const filteredTitles = Object.keys(apiData)
       .filter((key) => key.toLowerCase().includes(searchValue.toLowerCase()))
-      .filter((key) => expandedAccordions.includes(apiData[key].tag) && key.toLowerCase().includes(searchValue.toLowerCase()));
+      .filter((key) => {
+        const accordionTag = apiData[key].tag;
+        return (
+          (expandedAccordions.includes(accordionTag) &&
+            key.toLowerCase().includes(searchValue.toLowerCase())) ||
+          (!allAccordionsOpen && accordionTag === apiData[key].tag)
+        );
+      });
+
     setFilteredTitles(filteredTitles);
   };
 
@@ -125,31 +148,36 @@ const DictionaryPage = () => {
     <div className="dictionary-page">
       <div className="search-bar">
         <div className="search-bar-inner">
+          <SearchIcon />
           <InputBase
             className="search-input"
             placeholder="Поиск по названию статьи"
             value={searchValue}
             onChange={handleSearchChange}
           />
-          <SearchIcon />
+          {searchValue && (
+            <IconButton onClick={handleClearSearch}>
+              <ClearIcon />
+            </IconButton>
+          )}
           <Button onClick={handleToggleAllAccordions}>
-            {expandedAccordions.length === Object.keys(apiData).length ? 'Закрыть все' : 'Открыть/Закрыть все'}
+            {expandedAccordions.length === Object.keys(apiData).length ? <UnfoldLessIcon className="search-icon"/> : <UnfoldMoreIcon className="search-icon"/>}
           </Button>
         </div>
       </div>
 
       {searchQuery && (
         <div className="search-redirect">
-          Поиск по справочнику MSD (переход на сторонний сайт):{" "}
-          <a
-            href={`https://www.msdmanuals.com/ru-ru/профессиональный/SearchResults?query=${encodeURIComponent(
+          Поиск по справочнику MSD (переход на сторонний сайт):{' '}
+          <Link
+            to={`https://www.msdmanuals.com/ru-ru/профессиональный/SearchResults?query=${encodeURIComponent(
               searchQuery
             )}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             {searchQuery}
-          </a>
+          </Link>
         </div>
       )}
 
@@ -172,7 +200,7 @@ const DictionaryPage = () => {
               hidden={!isAccordionVisible}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                {item.tag}
+                <strong>{item.tag}</strong>
               </AccordionSummary>
               <AccordionDetails>
                 <ul>
@@ -183,13 +211,7 @@ const DictionaryPage = () => {
                         handleItemClick(item.tag, title, event)
                       }
                     >
-                      <a
-                        href={`/dictionary/article/${title}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {title}
-                      </a>
+                      <span className="accordion-details-list">{title}</span>
                     </li>
                   ))}
                 </ul>
