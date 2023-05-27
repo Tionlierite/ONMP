@@ -1,6 +1,6 @@
 .dictionary-page {
   height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   font-family: "Outfit", sans-serif;
@@ -12,18 +12,9 @@
 }
 
 .accordion-summary {
-  background-color: #f5f5f5;
   color: #3B3B3B;
   cursor: default;
   text-decoration: none;
-}
-
-.accordion-summary:hover {
-  background-color: #f5f5f5;
-}
-
-.accordion-details {
-  background-color: #f5f5f5;
 }
 
 .accordion-details p {
@@ -47,7 +38,6 @@
 .search-bar {
   display: flex;
   align-items: center;
-  background-color: #f5f5f5;
   padding: 10px;
 }
 
