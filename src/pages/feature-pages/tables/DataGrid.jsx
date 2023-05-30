@@ -131,7 +131,7 @@ function SelectableDataGrid (props) {
   });
 
   useEffect(() => {
-    fetch("http://188.225.78.148/api/v1/differentials_tables/get_diff_tables/?name=" + name)
+    fetch("https://apu-hd.fun/api/v1/differentials_tables/get_diff_tables/?name=" + name)
       .then((res) => res.json())
       .then(
         (repos) => {
