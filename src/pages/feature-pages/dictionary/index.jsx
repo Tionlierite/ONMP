@@ -259,11 +259,11 @@ const DictionaryPage = () => {
       category: articleData.tag,
       title: title,
       description: articleData.description,
-      symptoms: articleData.symptomps.join(', '),
+      symptoms: articleData.symptomps.join('; '),
       period: articleData.period,
-      forms: articleData.forms.join(', '),
-      formDescriptions: articleData['form descriptions'].join(', '),
-      formSymptoms: articleData['form symptomps'].join(', '),
+      forms: articleData.forms.join('; '),
+      formDescriptions: articleData['form descriptions'].join('; '),
+      formSymptoms: articleData['form symptomps'].join('; '),
     });
     setEditArticleOpen(true);
   };
@@ -307,10 +307,10 @@ const DictionaryPage = () => {
           tag: category,
           description,
           period,
-          symptomps: symptoms ? symptoms.split(",").map((item) => item.trim()) : [],
-          forms: forms ? forms.split(",").map((item) => item.trim()) : [],
-          "form descriptions": formDescriptions ? formDescriptions.split(",").map((item) => item.trim()) : [],
-          "form symptomps": formSymptoms ? formSymptoms.split(",").map((item) => item.trim()) : [],
+          symptomps: symptoms ? symptoms.split(";").map((item) => item.trim()) : [],
+          forms: forms ? forms.split(";").map((item) => item.trim()) : [],
+          "form descriptions": formDescriptions ? formDescriptions.split(";").map((item) => item.trim()) : [],
+          "form symptomps": formSymptoms ? formSymptoms.split(";").map((item) => item.trim()) : [],
         },
       };
   
@@ -339,13 +339,13 @@ const DictionaryPage = () => {
           tag: category,
           description,
           period,
-          symptomps: symptoms ? symptoms.split(",").map((item) => item.trim()) : [],
-          forms: forms ? forms.split(",").map((item) => item.trim()) : [],
+          symptomps: symptoms ? symptoms.split(";").map((item) => item.trim()) : [],
+          forms: forms ? forms.split(";").map((item) => item.trim()) : [],
           "form descriptions": newArticleData.formDescriptions
-            ? newArticleData.formDescriptions.split(",").map((item) => item.trim())
+            ? newArticleData.formDescriptions.split(";").map((item) => item.trim())
             : [],
             "form symptomps": newArticleData.formSymptoms
-            ? newArticleData.formSymptoms.split(",").map((item) => item.trim())
+            ? newArticleData.formSymptoms.split(";").map((item) => item.trim())
             : [],
         },
       };

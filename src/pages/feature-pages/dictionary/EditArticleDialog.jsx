@@ -61,7 +61,7 @@ const EditArticleDialog = ({
       <TextField
         margin="dense"
         name="symptoms"
-        label="Симптомы"
+        label="Симптомы (через ;)"
         type="text"
         value={editArticleData.symptoms}
         onChange={handleEditInputChange}
@@ -79,7 +79,7 @@ const EditArticleDialog = ({
       <TextField
         margin="dense"
         name="forms"
-        label="Формы"
+        label="Формы (через ;)"
         type="text"
         value={editArticleData.forms}
         onChange={handleEditInputChange}
@@ -88,7 +88,7 @@ const EditArticleDialog = ({
       <TextField
         margin="dense"
         name="formDescriptions"
-        label="Описания форм"
+        label="Описания форм (через ;)"
         type="text"
         multiline
         rows={4}
@@ -99,7 +99,7 @@ const EditArticleDialog = ({
       <TextField
         margin="dense"
         name="formSymptoms"
-        label="Симптомы форм"
+        label="Симптомы форм (через ;)"
         type="text"
         multiline
         rows={4}

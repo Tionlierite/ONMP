@@ -59,7 +59,7 @@ const AddArticleDialog = ({
           <TextField
             margin="dense"
             name="symptoms"
-            label="Симптомы (через запятую)"
+            label="Симптомы (через ;)"
             type="text"
             value={newArticleData.symptoms}
             onChange={handleInputChange}
@@ -77,7 +77,7 @@ const AddArticleDialog = ({
           <TextField
             margin="dense"
             name="forms"
-            label="Формы (через запятую)"
+            label="Формы (через ;)"
             type="text"
             value={newArticleData.forms}
             onChange={handleInputChange}
@@ -86,7 +86,7 @@ const AddArticleDialog = ({
           <TextField
             margin="dense"
             name="formDescriptions"
-            label="Описания форм (через запятую)"
+            label="Описания форм (через ;)"
             type="text"
             value={newArticleData.formDescriptions}
             onChange={handleInputChange}
@@ -95,7 +95,7 @@ const AddArticleDialog = ({
           <TextField
             margin="dense"
             name="formSymptoms"
-            label="Симптомы форм (через запятую)"
+            label="Симптомы форм (через ;)"
             type="text"
             value={newArticleData.formSymptoms}
             onChange={handleInputChange}
