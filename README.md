@@ -9,3 +9,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+## Installation
+
+1. Install `node.js`
+2. Run `npm install`
