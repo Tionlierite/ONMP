@@ -60,7 +60,13 @@ function GetRowId(arr_rows) {
   return uni_key;
 }
 
-function SummRows(arr_rows, arr, sum_col) {
+function SummRows(arr_rows, arr, age) {
+  let sum_col = 0;
+  for (let i in arr_rows) {
+    for (let j in arr_rows[i]) {
+      sum_col = j;
+    }
+  }
   let sum = 0;
   for (let i in arr_rows) {
     for (let j in arr_rows[i]) {
@@ -86,7 +92,7 @@ function GetTextRes(res_rows, x) {
     for (let j in res_rows[i]) {
       if (res_rows[i][j] == x) {
         for (let z in res_rows[i]) {
-          if (z != j) return res_rows[i][z];
+          if (z !== j) return res_rows[i][z];
           return res_rows[i][z]
         }
       }
@@ -110,8 +116,12 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-function ShowTable(table, type_table, selectionModel, setSelectionModel) {
-  if (type_table == 1 || type_table == 2) return (
+function ShowTable(table, type_table, selectionModel, setSelectionModel, 
+  selectionModel1, setSelectionModel1, selectionModel2, setSelectionModel2, selectionModel3, setSelectionModel3, 
+  selectionModel4, setSelectionModel4, selectionModel5, setSelectionModel5, selectionModel6, setSelectionModel6, 
+  selectionModel7, setSelectionModel7, selectionModel8, setSelectionModel8, selectionModel9, setSelectionModel9, 
+  selectionModel10, setSelectionModel10) {
+  if (type_table === 1 || type_table === 2) return (
     <StyledDataGrid
       sx={{
         "& .MuiDataGrid-columnHeaderTitle": {
@@ -142,7 +152,7 @@ function ShowTable(table, type_table, selectionModel, setSelectionModel) {
       selectionModel={selectionModel}
     />
   )
-  if (type_table == 3) {
+  if (type_table === 3) {
     return (
       <StyledDataGrid
         sx={{
@@ -176,121 +186,123 @@ function ShowTable(table, type_table, selectionModel, setSelectionModel) {
       />
     )
   }
-  if (type_table == 4) {
+  if (type_table === 4) {
     let arr_pol = []
     for (let i in table)  {
       if (i != "Интерпретация результата")
       arr_pol.push(i)
     }
-    if (arr_pol.length == 1) return (
+    if (arr_pol.length === 1) return (
       <div>
         {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
       </div>
     )
-    if (arr_pol.length == 2) return (
+    if (arr_pol.length === 2) return (
       <div>
         {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
       </div>
     )
-    if (arr_pol.length == 3) return (
+    if (arr_pol.length === 3) return (
       <div>
         {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[2], selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
       </div>
     )
-    if (arr_pol.length == 4) return (
+    if (arr_pol.length === 4) return (
       <div>
         {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[2], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[3], selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
       </div>
     )
-    if (arr_pol.length == 5) return (
+    if (arr_pol.length === 5) return (
       <div>
         {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[2], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[3], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[4], selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
       </div>
     )
-    if (arr_pol.length == 6) return (
+    if (arr_pol.length === 6) return (
       <div>
         {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[2], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[3], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[4], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[5], selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
       </div>
     )
-    if (arr_pol.length == 7) return (
+    if (arr_pol.length === 7) return (
       <div>
         {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[2], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[3], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[4], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[5], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[6], selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
+        {OneSubTable(table, arr_pol[6], selectionModel6, setSelectionModel6)}
       </div>
     )
-    if (arr_pol.length == 8) return (
+    if (arr_pol.length === 8) return (
       <div>
         {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[2], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[3], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[4], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[5], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[6], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[7], selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
+        {OneSubTable(table, arr_pol[6], selectionModel6, setSelectionModel6)}
+        {OneSubTable(table, arr_pol[7], selectionModel7, setSelectionModel7)}
       </div>
     )
-    if (arr_pol.length == 9) return (
+    if (arr_pol.length === 9) return (
       <div>
         {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[2], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[3], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[4], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[5], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[6], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[7], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[8], selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
+        {OneSubTable(table, arr_pol[6], selectionModel6, setSelectionModel6)}
+        {OneSubTable(table, arr_pol[7], selectionModel7, setSelectionModel7)}
+        {OneSubTable(table, arr_pol[8], selectionModel8, setSelectionModel8)}
       </div>
     )
-    if (arr_pol.length == 10) return (
-      <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[2], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[3], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[4], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[5], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[6], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[7], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[8], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[9], selectionModel, setSelectionModel)}
-      </div>
-    )
+    if (arr_pol.length === 10) {
+      return (
+        <div>
+          {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
+          {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
+          {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
+          {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
+          {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
+          {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
+          {OneSubTable(table, arr_pol[6], selectionModel6, setSelectionModel6)}
+          {OneSubTable(table, arr_pol[7], selectionModel7, setSelectionModel7)}
+          {OneSubTable(table, arr_pol[8], selectionModel8, setSelectionModel8)}
+          {OneSubTable(table, arr_pol[9], selectionModel9, setSelectionModel9)}
+        </div>
+      )
+    } 
     
-    if (arr_pol.length == 11) return (
+    if (arr_pol.length === 11) return (
       <div>
         {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[2], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[3], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[4], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[5], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[6], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[7], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[8], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[9], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[10], selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
+        {OneSubTable(table, arr_pol[6], selectionModel6, setSelectionModel6)}
+        {OneSubTable(table, arr_pol[7], selectionModel7, setSelectionModel7)}
+        {OneSubTable(table, arr_pol[8], selectionModel8, setSelectionModel8)}
+        {OneSubTable(table, arr_pol[9], selectionModel9, setSelectionModel9)}
+        {OneSubTable(table, arr_pol[10], selectionModel10, setSelectionModel10)}
       </div>
     )
   }
@@ -333,8 +345,10 @@ function OneSubTable (table, i, selectionModel, setSelectionModel) {
   )
 }
 
-function ShowResult(table, type_result, selectionModel, res_table, part_name) {
-  if (type_result == 2) return (
+function ShowResult(table, type_result, selectionModel, 
+  selectionModel1, selectionModel2, selectionModel3, selectionModel4, selectionModel5, selectionModel6, selectionModel7, 
+  selectionModel8, selectionModel9, selectionModel10, res_table, part_name, age) {
+  if (type_result === 2) return (
     <div>
       <h1>Результат: </h1>
       <Stack spacing={3} direction="column" width={'50%'}>
@@ -348,7 +362,7 @@ function ShowResult(table, type_result, selectionModel, res_table, part_name) {
       </Stack>
     </div>
   )
-  if (type_result == 3) return (
+  if (type_result === 3) return (
     <div>
       <h1>Результат: </h1>
       <Stack spacing={3} direction="column" width={'50%'}>
@@ -362,48 +376,289 @@ function ShowResult(table, type_result, selectionModel, res_table, part_name) {
       </Stack>
     </div>
   )
-  if (type_result == 4) return (
+  if (type_result === 4) return (
     <div>
       <h1>Результат: </h1>
         <Stack spacing={3} direction="column" width={'50%'}>
           <TextField
             id="outlined-controlled"
             label="Сумма"
-            value={part_name + ": " + Number(SummRows(table, SelRowToArr(selectionModel), "5 лет")) + " %"}
+            value={part_name + ": " + Number(SummRows(table, SelRowToArr(selectionModel), age)) + " %"}
             multiline
           />
           <ColorButton variant="contained">Сохранить</ColorButton>
         </Stack>
     </div>
   )
-  if (type_result == 5) return (
-    <div>
-      <h1>Результат: </h1>
-        <Stack spacing={3} direction="column" width={'50%'}>
-          <TextField
-            id="outlined-controlled"
-            label="Сумма"
-            value={part_name + ": " + Number(SummRows(table, SelRowToArr(selectionModel), "Баллы")) + " баллов - " + GetTextRes(res_table, SummRows(table, SelRowToArr(selectionModel), "Баллы"))}
-            multiline
-          />
-          <ColorButton variant="contained">Сохранить</ColorButton>
-        </Stack>
-    </div>
-  )
+  if (type_result === 5 || type_result === 6 || type_result === 7) {
+    let arr_pol = [];
+    for (let i in table) {
+      if (i != "Интерпретация результата")
+        arr_pol.push(i)
+    }
+    if (arr_pol.length === 1) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+    if (arr_pol.length === 2) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
+                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+    if (arr_pol.length === 3) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
+                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+    if (arr_pol.length === 4) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
+                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
+                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+    if (arr_pol.length === 5) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
+                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
+                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+    if (arr_pol.length === 6) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
+                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
+                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
+                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+    if (arr_pol.length === 7) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
+                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
+                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
+                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
+                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+    if (arr_pol.length === 8) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
+                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
+                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
+                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
+                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) 
+                + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+    if (arr_pol.length === 9) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
+                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
+                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
+                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
+                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) 
+                + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7)) 
+                + SummRows(table[arr_pol[8]], SelRowToArr(selectionModel8))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+    if (arr_pol.length === 10) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
+                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
+                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
+                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
+                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) 
+                + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7)) 
+                + SummRows(table[arr_pol[8]], SelRowToArr(selectionModel8)) 
+                + SummRows(table[arr_pol[9]], SelRowToArr(selectionModel9))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+    if (arr_pol.length === 11) {
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) 
+                + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
+                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
+                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
+                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) 
+                + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7)) 
+                + SummRows(table[arr_pol[8]], SelRowToArr(selectionModel8)) 
+                + SummRows(table[arr_pol[9]], SelRowToArr(selectionModel9)) 
+                + SummRows(table[arr_pol[10]], SelRowToArr(selectionModel10))) 
+                + " баллов"}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
+  }
 }
 
 
 function SelectableDataGrid (props) {
 
-  // const [tableData, setTableData] = useState([])
-  // useEffect(() => {
-  //   fetch("https://jsonplaceholder.typicode.com/posts")
-  //     .then((data) => data.json())
-  //     .then((data) => setTableData(data))
-  // }, [])
-  // console.log(tableData)
-
   const [selectionModel, setSelectionModel] = useState([]);
+  const [selectionModel1, setSelectionModel1] = useState([]);
+  const [selectionModel2, setSelectionModel2] = useState([]);
+  const [selectionModel3, setSelectionModel3] = useState([]);
+  const [selectionModel4, setSelectionModel4] = useState([]);
+  const [selectionModel5, setSelectionModel5] = useState([]);
+  const [selectionModel6, setSelectionModel6] = useState([]);
+  const [selectionModel7, setSelectionModel7] = useState([]);
+  const [selectionModel8, setSelectionModel8] = useState([]);
+  const [selectionModel9, setSelectionModel9] = useState([]);
+  const [selectionModel10, setSelectionModel10] = useState([]);
+
+  let arr_selectionModel = [[selectionModel, setSelectionModel], [selectionModel1, setSelectionModel1], [selectionModel2, setSelectionModel2],
+  [selectionModel3, setSelectionModel3], [selectionModel4, setSelectionModel4], [selectionModel5, setSelectionModel5], [selectionModel6, setSelectionModel6],
+  [selectionModel7, setSelectionModel7], [selectionModel8, setSelectionModel8], [selectionModel9, setSelectionModel9], [selectionModel10, setSelectionModel10]]
 
   // let name = "Шкала комы FOUR";
   let name = props.name_of_table;
@@ -443,9 +698,9 @@ function SelectableDataGrid (props) {
       });
   }, [setAppState]);
 
-  if (name == "Шкала оценки вероятности ТЭЛА (Revised Geneva Score)") {
+  if (name === "Шкала оценки вероятности ТЭЛА (Revised Geneva Score)") {
     for (let i in appState.items) {
-      if (i == name) {
+      if (i === name) {
         appState.items = appState.items[i]
       }
     }
@@ -465,10 +720,15 @@ function SelectableDataGrid (props) {
       alignItems="center"
       >
       <div style={{ width: '50%' }}>
-        <h2>Нажатое название таблицы - {props.name_of_table}, по нему делаем API-запрос на получение таблицы</h2>
         <h1>{props.name_of_table}</h1>
-        {ShowTable(appState.items, appState.type_table, selectionModel, setSelectionModel)}
-        {ShowResult(appState.items, appState.type_result, selectionModel, appState.res, appState.part_name)}
+        {ShowTable(appState.items, appState.type_table, selectionModel, setSelectionModel, 
+          selectionModel1, setSelectionModel1, selectionModel2, setSelectionModel2, selectionModel3, setSelectionModel3, 
+          selectionModel4, setSelectionModel4, selectionModel5, setSelectionModel5, selectionModel6, setSelectionModel6, 
+          selectionModel7, setSelectionModel7, selectionModel8, setSelectionModel8, selectionModel9, setSelectionModel9, 
+          selectionModel10, setSelectionModel10)}
+        {ShowResult(appState.items, appState.type_result, selectionModel, 
+          selectionModel1, selectionModel2, selectionModel3, selectionModel4, selectionModel5, selectionModel6, selectionModel7, 
+          selectionModel8, selectionModel9, selectionModel10, appState.res, appState.part_name, "5 лет")}
       </div>
       </Box>
     )
