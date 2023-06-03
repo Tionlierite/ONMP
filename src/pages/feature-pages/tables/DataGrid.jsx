@@ -60,20 +60,26 @@ function GetRowId(arr_rows) {
   return uni_key;
 }
 
-function SummRows(arr_rows, arr, age) {
+function SelRowToArr (x) {
+  let arr = [];
+  arr = x;
+  return arr;
+}
+
+function SummRows(table, selected_str, age) {
   let sum_col = 0;
-  for (let i in arr_rows) {
-    for (let j in arr_rows[i]) {
+  for (let i in table) {
+    for (let j in table[i]) {
       sum_col = j;
     }
   }
   let sum = 0;
-  for (let i in arr_rows) {
-    for (let j in arr_rows[i]) {
-      for (let z in arr) {
-        if (arr_rows[i][j] === arr[z]) {
-          console.log(arr_rows[i][sum_col]);
-          sum = sum + Number(arr_rows[i][sum_col]);
+  for (let i in table) {
+    for (let j in table[i]) {
+      for (let z in selected_str) {
+        if (table[i][j] === selected_str[z]) {
+          console.log(table[i][sum_col]);
+          sum = sum + Number(table[i][sum_col]);
         }
       }
     }
@@ -81,23 +87,56 @@ function SummRows(arr_rows, arr, age) {
   return sum;
 }
 
-function SelRowToArr (x) {
-  let arr = [];
-  arr = x;
-  return arr;
-}
-
 function GetTextRes(res_rows, x) {
   for (let i = 0; i < res_rows.length; i++) {
     for (let j in res_rows[i]) {
       if (res_rows[i][j] == x) {
         for (let z in res_rows[i]) {
-          if (z !== j) return res_rows[i][z];
-          return res_rows[i][z]
+          if (z != j) return res_rows[i][z];
         }
       }
     }
   }
+  return ""
+}
+
+function InterpretationPercent(table, selected_str, age) {
+  let res_string = "("
+  let sum_col_start = 0;
+  let sum_col_end = 0;
+  for (let i in table) {
+    for (let j in table[i]) {
+      sum_col_start = j;
+      break;
+    }
+  }
+  for (let i in table) {
+    for (let j in table[i]) {
+      sum_col_end = j;
+    }
+  }
+  for (let i in table) {
+    for (let j in table[i]) {
+      for (let z in selected_str) {
+        if (table[i][j] === selected_str[z]) {
+          res_string += table[i][sum_col_end] + "% - " + table[i][sum_col_start].toLowerCase() + ", ";
+        }
+      }
+    }
+  }
+  res_string = res_string.substring(0, res_string.length - 2)
+  if (res_string.length !== 0) res_string += ")"
+  return res_string
+}
+
+function InterpretationBall(arr_pol, arr_selectionModel, age) {
+  let res_string = "("
+  for (let i = 0; i < arr_pol.length; i++) {
+    res_string += String(arr_pol[i]).toLowerCase() + " - " + String(arr_selectionModel[i]).toLowerCase() + ", "
+  }
+  res_string = res_string.substring(0, res_string.length - 2)
+  res_string += ")"
+  return res_string
 }
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
@@ -189,7 +228,7 @@ function ShowTable(table, type_table, selectionModel, setSelectionModel,
   if (type_table === 4) {
     let arr_pol = []
     for (let i in table)  {
-      if (i != "Интерпретация результата")
+      if (i !== "Интерпретация результата")
       arr_pol.push(i)
     }
     if (arr_pol.length === 1) return (
@@ -343,6 +382,7 @@ function OneSubTable (table, i, selectionModel, setSelectionModel) {
 }
 
 function ShowResult(name, table, type_result, selectionModel, arr_selectionModel, res_table, part_name, age) {
+  if (part_name === "") part_name = name
   if (type_result === 2) return (
     <div>
       <h1>Результат: </h1>
@@ -378,7 +418,8 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
           <TextField
             id="outlined-controlled"
             label="Сумма"
-            value={part_name + ": " + Number(SummRows(table, SelRowToArr(selectionModel), age)) + " %"}
+            value={part_name + ": " + Number(SummRows(table, SelRowToArr(selectionModel), age)) + " % "  
+            + InterpretationPercent(table, SelRowToArr(selectionModel), age)}
             multiline
           />
           <ColorButton variant="contained">Сохранить</ColorButton>
@@ -400,10 +441,37 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
         </Stack>
     </div>
   )
-  if (type_result === 5 || type_result === 6 || type_result === 7) {
+  if (type_result === 5) {
     let arr_pol = [];
     for (let i in table) {
-      if (i != "Интерпретация результата")
+      if (i !== "Интерпретация результата")
+        arr_pol.push(i)
+    }
+    let summ = 0;
+    for (let i = 0; i < arr_pol.length; i++) {
+      for (let j = 0; j < arr_selectionModel.length; j++) {
+        summ += Number(SummRows(table[arr_pol[i]], SelRowToArr(arr_selectionModel[j])))
+      }
+    }
+    return (
+      <div>
+        <h1>Результат: </h1>
+          <Stack spacing={3} direction="column" width={'50%'}>
+            <TextField
+              id="outlined-controlled"
+              label="Сумма"
+              value={part_name + ": " + summ + " баллов - " + GetTextRes(res_table, summ).toLowerCase()}
+              multiline
+            />
+            <ColorButton variant="contained">Сохранить</ColorButton>
+          </Stack>
+      </div>
+    )
+  }
+  if (type_result === 6) {
+    let arr_pol = [];
+    for (let i in table) {
+      if (i !== "Интерпретация результата")
         arr_pol.push(i)
     }
     let summ = 0;
@@ -427,8 +495,34 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
       </div>
     )
   }
+  if (type_result === 7) {
+    let arr_pol = [];
+    for (let i in table) {
+      if (i !== "Интерпретация результата")
+        arr_pol.push(i)
+    }
+    let summ = 0;
+    for (let i = 0; i < arr_pol.length; i++) {
+      for (let j = 0; j < arr_selectionModel.length; j++) {
+        summ += Number(SummRows(table[arr_pol[i]], SelRowToArr(arr_selectionModel[j])))
+      }
+    }
+    return (
+      <div>
+        <h1>Результат: </h1>
+          <Stack spacing={3} direction="column" width={'50%'}>
+            <TextField
+              id="outlined-controlled"
+              label="Сумма"
+              value={part_name + ": " + summ + " баллов " + String(InterpretationBall(arr_pol, arr_selectionModel, age))}
+              multiline
+            />
+            <ColorButton variant="contained">Сохранить</ColorButton>
+          </Stack>
+      </div>
+    )
+  }
 }
-
 
 function SelectableDataGrid (props) {
 
