@@ -4,11 +4,26 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Box from "@mui/material/Box";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import { Link } from 'react-router-dom'
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
 
 import names_of_tables from './names_of_tables.json'
+import item_logo from './table.png'
 
 let Names_of_tables = names_of_tables.sort()
+
+const linkStyle = {
+  textDecoration: "none",
+  color: 'blue'
+};
+
+const StyledButton = styled(Button)({
+  textTransform: 'none',
+  // backgroundColor: '#e8e8e8',
+});
 
 function CustomizedInputBase() {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -31,7 +46,7 @@ function CustomizedInputBase() {
     <div style={{ width: '50%' }}>
     <Paper
       component="form"
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '80%' }}
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
@@ -44,14 +59,17 @@ function CustomizedInputBase() {
         <SearchIcon />
       </IconButton>
     </Paper>
-    <ul>
+    <List >
       {searchResults.map(item => (
-        <li style={{margin: 5 }}>
-          <Link to={{ pathname: "/tables/WorkWithTable", state: item}}>{item}</Link>
-        </li>
+       <ListItem style={{margin: -9 }} >
+          <StyledButton variant="outlined">
+            <img src={item_logo} width={'40'} style={{margin: 5 }} />
+            <Link to={{ pathname: "/tables/WorkWithTable", state: item}} style={linkStyle}>{item}</Link>
+          </StyledButton>
+        </ListItem>
         
       ))}
-    </ul>
+    </List>
     </div>
     </Box>
   );
