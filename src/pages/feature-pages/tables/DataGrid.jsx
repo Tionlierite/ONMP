@@ -608,6 +608,8 @@ function SelectableDataGrid (props) {
           selectionModel7, setSelectionModel7, selectionModel8, setSelectionModel8, selectionModel9, setSelectionModel9, 
           selectionModel10, setSelectionModel10)}
         {ShowResult(name, appState.items, appState.type_result, selectionModel, arr_selectionModel, appState.res, appState.part_name, "5 лет")}
+        <h4>Справка:</h4>
+        <p>{appState.note}</p>
       </div>
       </Box>
     )

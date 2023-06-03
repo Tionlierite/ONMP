@@ -59,6 +59,9 @@ function CustomizedInputBase() {
         <SearchIcon />
       </IconButton>
     </Paper>
+    <p>Таблицы "Шкала моторного дефицита LAMS (Los Angeles Motor Scale)" и "Шкала Глазго (Glasgow Coma Scale)" пока не работают. 
+      Их НЕ ТРОГАТЬ! Всё равно ничего не увидите кроме ошибок.</p> 
+    <p>(╮°-°)╮┳━━┳ ( ╯°□°)╯ ┻━━┻ </p>
     <List >
       {searchResults.map(item => (
        <ListItem style={{margin: -9 }} >
