@@ -345,7 +345,7 @@ function OneSubTable (table, i, selectionModel, setSelectionModel) {
   )
 }
 
-function ShowResult(table, type_result, selectionModel, 
+function ShowResult(name, table, type_result, selectionModel, 
   selectionModel1, selectionModel2, selectionModel3, selectionModel4, selectionModel5, selectionModel6, selectionModel7, 
   selectionModel8, selectionModel9, selectionModel10, res_table, part_name, age) {
   if (type_result === 2) return (
@@ -390,254 +390,99 @@ function ShowResult(table, type_result, selectionModel,
         </Stack>
     </div>
   )
+  if (name === "Шкала оценки вероятности ТЭЛА (Revised Geneva Score)") return (
+    <div>
+      <h1>Результат: </h1>
+        <Stack spacing={3} direction="column" width={'50%'}>
+          <TextField
+            id="outlined-controlled"
+            label="Сумма"
+            value={part_name + ": " + Number(SummRows(table, SelRowToArr(selectionModel))) + " баллов - " + GetTextRes(res_table, SummRows(table, SelRowToArr(selectionModel))).toLowerCase()}
+            multiline
+          />
+          <ColorButton variant="contained">Сохранить</ColorButton>
+        </Stack>
+    </div>
+  )
   if (type_result === 5 || type_result === 6 || type_result === 7) {
     let arr_pol = [];
     for (let i in table) {
       if (i != "Интерпретация результата")
         arr_pol.push(i)
     }
+    let summ = 0;
     if (arr_pol.length === 1) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)))
     }
     if (arr_pol.length === 2) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
-                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)))      
     }
     if (arr_pol.length === 3) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
-                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
-                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2)))
     }
     if (arr_pol.length === 4) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
-                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
-                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
-                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2)) + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3)))
     }
     if (arr_pol.length === 5) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
-                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
-                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
-                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
-                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2)) + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)))
     }
     if (arr_pol.length === 6) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
-                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
-                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
-                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
-                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
-                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2)) + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)))
     }
     if (arr_pol.length === 7) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
-                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
-                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
-                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
-                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
-                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
-                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2)) + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
+                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)))
     }
     if (arr_pol.length === 8) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
-                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
-                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
-                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
-                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
-                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
-                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) 
-                + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2)) + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
+                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7)))
     }
     if (arr_pol.length === 9) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
-                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
-                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
-                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
-                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
-                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
-                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) 
-                + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7)) 
-                + SummRows(table[arr_pol[8]], SelRowToArr(selectionModel8))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2)) + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
+                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7)) 
+                + SummRows(table[arr_pol[8]], SelRowToArr(selectionModel8)))
     }
     if (arr_pol.length === 10) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + 
-                SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
-                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
-                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
-                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
-                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
-                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) 
-                + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7)) 
-                + SummRows(table[arr_pol[8]], SelRowToArr(selectionModel8)) 
-                + SummRows(table[arr_pol[9]], SelRowToArr(selectionModel9))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2)) + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
+                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7)) 
+                + SummRows(table[arr_pol[8]], SelRowToArr(selectionModel8)) + SummRows(table[arr_pol[9]], SelRowToArr(selectionModel9)))
     }
     if (arr_pol.length === 11) {
-      return (
-        <div>
-          <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
-              <TextField
-                id="outlined-controlled"
-                label="Сумма"
-                value={part_name + ": " + Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) 
-                + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
-                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2))
-                + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
-                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) 
-                + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
-                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) 
-                + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7)) 
-                + SummRows(table[arr_pol[8]], SelRowToArr(selectionModel8)) 
-                + SummRows(table[arr_pol[9]], SelRowToArr(selectionModel9)) 
-                + SummRows(table[arr_pol[10]], SelRowToArr(selectionModel10))) 
-                + " баллов"}
-                multiline
-              />
-              <ColorButton variant="contained">Сохранить</ColorButton>
-            </Stack>
-        </div>
-      )
+      summ = Number(SummRows(table[arr_pol[0]], SelRowToArr(selectionModel)) + SummRows(table[arr_pol[1]], SelRowToArr(selectionModel1)) 
+                + SummRows(table[arr_pol[2]], SelRowToArr(selectionModel2)) + SummRows(table[arr_pol[3]], SelRowToArr(selectionModel3))
+                + SummRows(table[arr_pol[4]], SelRowToArr(selectionModel4)) + SummRows(table[arr_pol[5]], SelRowToArr(selectionModel5)) 
+                + SummRows(table[arr_pol[6]], SelRowToArr(selectionModel6)) + SummRows(table[arr_pol[7]], SelRowToArr(selectionModel7)) 
+                + SummRows(table[arr_pol[8]], SelRowToArr(selectionModel8)) + SummRows(table[arr_pol[9]], SelRowToArr(selectionModel9)) 
+                + SummRows(table[arr_pol[10]], SelRowToArr(selectionModel10)))
     }
+    return (
+      <div>
+        <h1>Результат: </h1>
+          <Stack spacing={3} direction="column" width={'50%'}>
+            <TextField
+              id="outlined-controlled"
+              label="Сумма"
+              value={part_name + ": " + summ + " баллов"}
+              multiline
+            />
+            <ColorButton variant="contained">Сохранить</ColorButton>
+          </Stack>
+      </div>
+    )
   }
 }
 
@@ -726,7 +571,7 @@ function SelectableDataGrid (props) {
           selectionModel4, setSelectionModel4, selectionModel5, setSelectionModel5, selectionModel6, setSelectionModel6, 
           selectionModel7, setSelectionModel7, selectionModel8, setSelectionModel8, selectionModel9, setSelectionModel9, 
           selectionModel10, setSelectionModel10)}
-        {ShowResult(appState.items, appState.type_result, selectionModel, 
+        {ShowResult(name, appState.items, appState.type_result, selectionModel, 
           selectionModel1, selectionModel2, selectionModel3, selectionModel4, selectionModel5, selectionModel6, selectionModel7, 
           selectionModel8, selectionModel9, selectionModel10, appState.res, appState.part_name, "5 лет")}
       </div>
