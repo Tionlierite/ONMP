@@ -6,6 +6,7 @@ import Algorithms from '../pages/feature-pages/algorithms'
 import Calculator from '../pages/feature-pages/calculator'
 import Dictionary from '../pages/feature-pages/dictionary'
 import Tables from '../pages/feature-pages/tables'
+import CreateCard from '../pages/feature-pages/createCard'
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 			<NavBar />
 			<Switch>
 				<Route path='/' exact component={Home} />
+				<Route path='/createCard' component={CreateCard} />
 				<Route path='/algorithms' component={Algorithms} />
 				<Route path='/dictionary' component={Dictionary} />
 				<Route path='/calculator' component={Calculator} />
