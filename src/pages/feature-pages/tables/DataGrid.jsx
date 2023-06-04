@@ -68,9 +68,14 @@ function SelRowToArr (x) {
 
 function SummRows(table, selected_str, age) {
   let sum_col = 0;
-  for (let i in table) {
-    for (let j in table[i]) {
-      sum_col = j;
+  if (age != null) {
+    sum_col = age
+  }
+  else {
+    for (let i in table) {
+      for (let j in table[i]) {
+        sum_col = j;
+      }
     }
   }
   let sum = 0;
@@ -110,9 +115,14 @@ function InterpretationPercent(table, selected_str, age) {
       break;
     }
   }
-  for (let i in table) {
-    for (let j in table[i]) {
-      sum_col_end = j;
+  if (age != null) {
+    sum_col_end = age
+  }
+  else {
+    for (let i in table) {
+      for (let j in table[i]) {
+        sum_col_end = j;
+      }
     }
   }
   for (let i in table) {
@@ -155,7 +165,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-function ShowTable(table, type_table, selectionModel, setSelectionModel, 
+function ShowTable(name, table, type_table, age_column, selectionModel, setSelectionModel, 
   selectionModel1, setSelectionModel1, selectionModel2, setSelectionModel2, selectionModel3, setSelectionModel3, 
   selectionModel4, setSelectionModel4, selectionModel5, setSelectionModel5, selectionModel6, setSelectionModel6, 
   selectionModel7, setSelectionModel7, selectionModel8, setSelectionModel8, selectionModel9, setSelectionModel9, 
@@ -226,6 +236,9 @@ function ShowTable(table, type_table, selectionModel, setSelectionModel,
     )
   }
   if (type_table === 4) {
+    if (name === "Шкала Глазго (Glasgow Coma Scale)") {
+      table = table[age_column]
+    }
     let arr_pol = []
     for (let i in table)  {
       if (i !== "Интерпретация результата")
@@ -496,31 +509,60 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
     )
   }
   if (type_result === 7) {
-    let arr_pol = [];
-    for (let i in table) {
-      if (i !== "Интерпретация результата")
-        arr_pol.push(i)
-    }
-    let summ = 0;
-    for (let i = 0; i < arr_pol.length; i++) {
-      for (let j = 0; j < arr_selectionModel.length; j++) {
-        summ += Number(SummRows(table[arr_pol[i]], SelRowToArr(arr_selectionModel[j])))
+    if (name === "Шкала Глазго (Glasgow Coma Scale)") {
+      let arr_pol = [];
+      for (let i in table[age]) {
+        if (i !== "Интерпретация результата")
+          arr_pol.push(i)
       }
+      let summ = 0;
+      for (let i = 0; i < arr_pol.length; i++) {
+        for (let j = 0; j < arr_selectionModel.length; j++) {
+          summ += Number(SummRows(table[age][arr_pol[i]], SelRowToArr(arr_selectionModel[j])))
+        }
+      }
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + summ + " баллов - " + GetTextRes(res_table, summ).toLowerCase() + " " + String(InterpretationBall(arr_pol, arr_selectionModel, age))}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
     }
-    return (
-      <div>
-        <h1>Результат: </h1>
-          <Stack spacing={3} direction="column" width={'50%'}>
-            <TextField
-              id="outlined-controlled"
-              label="Сумма"
-              value={part_name + ": " + summ + " баллов " + String(InterpretationBall(arr_pol, arr_selectionModel, age))}
-              multiline
-            />
-            <ColorButton variant="contained">Сохранить</ColorButton>
-          </Stack>
-      </div>
-    )
+    else {
+      let arr_pol = [];
+      for (let i in table) {
+        if (i !== "Интерпретация результата")
+          arr_pol.push(i)
+      }
+      let summ = 0;
+      for (let i = 0; i < arr_pol.length; i++) {
+        for (let j = 0; j < arr_selectionModel.length; j++) {
+          summ += Number(SummRows(table[arr_pol[i]], SelRowToArr(arr_selectionModel[j])))
+        }
+      }
+      return (
+        <div>
+          <h1>Результат: </h1>
+            <Stack spacing={3} direction="column" width={'50%'}>
+              <TextField
+                id="outlined-controlled"
+                label="Сумма"
+                value={part_name + ": " + summ + " баллов " + String(InterpretationBall(arr_pol, arr_selectionModel, age))}
+                multiline
+              />
+              <ColorButton variant="contained">Сохранить</ColorButton>
+            </Stack>
+        </div>
+      )
+    }
   }
 }
 
@@ -552,7 +594,8 @@ function SelectableDataGrid (props) {
     type_table: null,
     type_result: null,
     note: null,
-    part_name: null
+    part_name: null,
+    age_column: null
   });
 
   useEffect(() => {
@@ -567,7 +610,8 @@ function SelectableDataGrid (props) {
             type_table: repos[name].type_table,
             type_result: repos[name].type_result,
             note: repos[name].note,
-            part_name: repos[name].part_name
+            part_name: repos[name].part_name,
+            age_column: repos[name].age_column
         },
         (error) => {
           this.setState({
@@ -587,6 +631,12 @@ function SelectableDataGrid (props) {
     }
   }
 
+  if (name === "Шкала Глазго (Glasgow Coma Scale)")
+    appState.age_column = "Взрослые и детей старше 4 лет"
+
+  if (name === "Определение площади ожогов у детей (по Lund и Browder)")
+    appState.age_column = "5 лет"
+
   if (appState.error) {
     return <p> Error {appState.error.message} </p>
   }
@@ -602,13 +652,12 @@ function SelectableDataGrid (props) {
       >
       <div style={{ width: '50%' }}>
         <h1>{props.name_of_table}</h1>
-        {ShowTable(appState.items, appState.type_table, selectionModel, setSelectionModel, 
+        {ShowTable(name, appState.items, appState.type_table, appState.age_column, selectionModel, setSelectionModel, 
           selectionModel1, setSelectionModel1, selectionModel2, setSelectionModel2, selectionModel3, setSelectionModel3, 
           selectionModel4, setSelectionModel4, selectionModel5, setSelectionModel5, selectionModel6, setSelectionModel6, 
           selectionModel7, setSelectionModel7, selectionModel8, setSelectionModel8, selectionModel9, setSelectionModel9, 
           selectionModel10, setSelectionModel10)}
-        {ShowResult(name, appState.items, appState.type_result, selectionModel, arr_selectionModel, appState.res, appState.part_name, "5 лет")}
-        <h4>Справка:</h4>
+        {ShowResult(name, appState.items, appState.type_result, selectionModel, arr_selectionModel, appState.res, appState.part_name, appState.age_column)}
         <p>{appState.note}</p>
       </div>
       </Box>
