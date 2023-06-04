@@ -9,11 +9,11 @@ import Stack from '@mui/material/Stack';
 
 import data from './Шкала оценки вероятности ТЭЛА (Revised Geneva Score).json'
 
-function GetHeader(arr_rows) {
+function GetHeader(arr_rows, type_table) {
   let columns = [], count = 0;
-  for (let i in arr_rows) {
-    let header;
-    if (count === 0) {
+  if (type_table == 1 || type_table == 4) {
+    for (let i in arr_rows) {
+      let header;
       header = {    
         field: i,  
         headerName: i,
@@ -21,18 +21,58 @@ function GetHeader(arr_rows) {
         flex: 1,
         minWidth: 150
       };
-      count++;
+      columns.push(header);
     }
-    else {
-      header = {    
-        field: i,  
-        headerName: i,
-        sortable: false,
-        // width: i.length*12,
-        width: 150
-      };
+  }
+  if (type_table == 2) {
+    for (let i in arr_rows) {
+      let header;
+      if (count === 0) {
+        header = {    
+          field: i,  
+          headerName: i,
+          sortable: false,
+          width: 150,
+          
+        };
+        count++;
+      }
+      else {
+        header = {    
+          field: i,  
+          headerName: i,
+          sortable: false,
+          flex: 1,
+          minWidth: 150
+        };
+      }
+      columns.push(header)
     }
-    columns.push(header);
+  }
+  if (type_table == 3) {
+    for (let i in arr_rows) {
+      let header;
+      if (count === 0) {
+        header = {    
+          field: i,  
+          headerName: i,
+          sortable: false,
+          flex: 1,
+          minWidth: 150
+        };
+        count++;
+      }
+      else {
+        header = {    
+          field: i,  
+          headerName: i,
+          sortable: false,
+          // width: i.length*12,
+          width: 150
+        };
+      }
+      columns.push(header);
+    }
   }
   return columns;
 }
@@ -171,38 +211,8 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
   selectionModel7, setSelectionModel7, selectionModel8, setSelectionModel8, selectionModel9, setSelectionModel9, 
   selectionModel10, setSelectionModel10) {
   if (type_table === 1 || type_table === 2) return (
-    <StyledDataGrid
-      sx={{
-        "& .MuiDataGrid-columnHeaderTitle": {
-          whiteSpace: "normal",
-          lineHeight: "normal"
-        },
-        "& .MuiDataGrid-columnHeader": {
-          // Forced to use important since overriding inline styles
-          height: "unset !important"
-        },
-        "& .MuiDataGrid-columnHeaders": {
-          // Forced to use important since overriding inline styles
-          maxHeight: "168px !important"
-        }
-      }}
-      rows={table}
-      columns={GetHeader(table[0])}
-      autoHeight={true}
-      getRowHeight={() => 'auto'}
-      getRowId={(row) => row[GetRowId(table)]}
-      disableColumnMenu
-      hideFooterSelectedRowCount
-      hideFooterRowCount
-      hideFooter
-      onRowSelectionModelChange={(newRowSelectionModel) => {
-        setSelectionModel(newRowSelectionModel);
-      }}
-      selectionModel={selectionModel}
-    />
-  )
-  if (type_table === 3) {
-    return (
+    <div>
+      <h3>{age_column}</h3>
       <StyledDataGrid
         sx={{
           "& .MuiDataGrid-columnHeaderTitle": {
@@ -219,11 +229,10 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
           }
         }}
         rows={table}
-        columns={GetHeader(table[0])}
+        columns={GetHeader(table[0], type_table)}
         autoHeight={true}
         getRowHeight={() => 'auto'}
         getRowId={(row) => row[GetRowId(table)]}
-        checkboxSelection
         disableColumnMenu
         hideFooterSelectedRowCount
         hideFooterRowCount
@@ -233,6 +242,43 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
         }}
         selectionModel={selectionModel}
       />
+    </div>
+  )
+  if (type_table === 3) {
+    return (
+      <div>
+        <h3>{age_column}</h3>
+        <StyledDataGrid
+          sx={{
+            "& .MuiDataGrid-columnHeaderTitle": {
+              whiteSpace: "normal",
+              lineHeight: "normal"
+            },
+            "& .MuiDataGrid-columnHeader": {
+              // Forced to use important since overriding inline styles
+              height: "unset !important"
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              // Forced to use important since overriding inline styles
+              maxHeight: "168px !important"
+            }
+          }}
+          rows={table}
+          columns={GetHeader(table[0], type_table)}
+          autoHeight={true}
+          getRowHeight={() => 'auto'}
+          getRowId={(row) => row[GetRowId(table)]}
+          checkboxSelection
+          disableColumnMenu
+          hideFooterSelectedRowCount
+          hideFooterRowCount
+          hideFooter
+          onRowSelectionModelChange={(newRowSelectionModel) => {
+            setSelectionModel(newRowSelectionModel);
+          }}
+          selectionModel={selectionModel}
+        />
+      </div>
     )
   }
   if (type_table === 4) {
@@ -246,118 +292,129 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     }
     if (arr_pol.length === 1) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
       </div>
     )
     if (arr_pol.length === 2) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
       </div>
     )
     if (arr_pol.length === 3) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
-        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
       </div>
     )
     if (arr_pol.length === 4) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
-        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
-        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], type_table, selectionModel3, setSelectionModel3)}
       </div>
     )
     if (arr_pol.length === 5) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
-        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
-        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
-        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], type_table, selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], type_table, selectionModel4, setSelectionModel4)}
       </div>
     )
     if (arr_pol.length === 6) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
-        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
-        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
-        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
-        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], type_table, selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], type_table, selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], type_table, selectionModel5, setSelectionModel5)}
       </div>
     )
     if (arr_pol.length === 7) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
-        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
-        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
-        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
-        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
-        {OneSubTable(table, arr_pol[6], selectionModel6, setSelectionModel6)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], type_table, selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], type_table, selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], type_table, selectionModel5, setSelectionModel5)}
+        {OneSubTable(table, arr_pol[6], type_table, selectionModel6, setSelectionModel6)}
       </div>
     )
     if (arr_pol.length === 8) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
-        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
-        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
-        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
-        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
-        {OneSubTable(table, arr_pol[6], selectionModel6, setSelectionModel6)}
-        {OneSubTable(table, arr_pol[7], selectionModel7, setSelectionModel7)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], type_table, selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], type_table, selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], type_table, selectionModel5, setSelectionModel5)}
+        {OneSubTable(table, arr_pol[6], type_table, selectionModel6, setSelectionModel6)}
+        {OneSubTable(table, arr_pol[7], type_table, selectionModel7, setSelectionModel7)}
       </div>
     )
     if (arr_pol.length === 9) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
-        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
-        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
-        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
-        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
-        {OneSubTable(table, arr_pol[6], selectionModel6, setSelectionModel6)}
-        {OneSubTable(table, arr_pol[7], selectionModel7, setSelectionModel7)}
-        {OneSubTable(table, arr_pol[8], selectionModel8, setSelectionModel8)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], type_table, selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], type_table, selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], type_table, selectionModel5, setSelectionModel5)}
+        {OneSubTable(table, arr_pol[6], type_table, selectionModel6, setSelectionModel6)}
+        {OneSubTable(table, arr_pol[7], type_table, selectionModel7, setSelectionModel7)}
+        {OneSubTable(table, arr_pol[8], type_table, selectionModel8, setSelectionModel8)}
       </div>
     )
     if (arr_pol.length === 10) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
-        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
-        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
-        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
-        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
-        {OneSubTable(table, arr_pol[6], selectionModel6, setSelectionModel6)}
-        {OneSubTable(table, arr_pol[7], selectionModel7, setSelectionModel7)}
-        {OneSubTable(table, arr_pol[8], selectionModel8, setSelectionModel8)}
-        {OneSubTable(table, arr_pol[9], selectionModel9, setSelectionModel9)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], type_table, selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], type_table, selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], type_table, selectionModel5, setSelectionModel5)}
+        {OneSubTable(table, arr_pol[6], type_table, selectionModel6, setSelectionModel6)}
+        {OneSubTable(table, arr_pol[7], type_table, selectionModel7, setSelectionModel7)}
+        {OneSubTable(table, arr_pol[8], type_table, selectionModel8, setSelectionModel8)}
+        {OneSubTable(table, arr_pol[9], type_table, selectionModel9, setSelectionModel9)}
       </div>
     )
     if (arr_pol.length === 11) return (
       <div>
-        {OneSubTable(table, arr_pol[0], selectionModel, setSelectionModel)}
-        {OneSubTable(table, arr_pol[1], selectionModel1, setSelectionModel1)}
-        {OneSubTable(table, arr_pol[2], selectionModel2, setSelectionModel2)}
-        {OneSubTable(table, arr_pol[3], selectionModel3, setSelectionModel3)}
-        {OneSubTable(table, arr_pol[4], selectionModel4, setSelectionModel4)}
-        {OneSubTable(table, arr_pol[5], selectionModel5, setSelectionModel5)}
-        {OneSubTable(table, arr_pol[6], selectionModel6, setSelectionModel6)}
-        {OneSubTable(table, arr_pol[7], selectionModel7, setSelectionModel7)}
-        {OneSubTable(table, arr_pol[8], selectionModel8, setSelectionModel8)}
-        {OneSubTable(table, arr_pol[9], selectionModel9, setSelectionModel9)}
-        {OneSubTable(table, arr_pol[10], selectionModel10, setSelectionModel10)}
+        <h3>{age_column}</h3>
+        {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
+        {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
+        {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
+        {OneSubTable(table, arr_pol[3], type_table, selectionModel3, setSelectionModel3)}
+        {OneSubTable(table, arr_pol[4], type_table, selectionModel4, setSelectionModel4)}
+        {OneSubTable(table, arr_pol[5], type_table, selectionModel5, setSelectionModel5)}
+        {OneSubTable(table, arr_pol[6], type_table, selectionModel6, setSelectionModel6)}
+        {OneSubTable(table, arr_pol[7], type_table, selectionModel7, setSelectionModel7)}
+        {OneSubTable(table, arr_pol[8], type_table, selectionModel8, setSelectionModel8)}
+        {OneSubTable(table, arr_pol[9], type_table, selectionModel9, setSelectionModel9)}
+        {OneSubTable(table, arr_pol[10], type_table, selectionModel10, setSelectionModel10)}
       </div>
     )
   }
 }
 
-function OneSubTable (table, i, selectionModel, setSelectionModel) {
+function OneSubTable (table, i, type_table, selectionModel, setSelectionModel) {
   return (
     <div>
       <h3>{i}</h3>
@@ -377,7 +434,7 @@ function OneSubTable (table, i, selectionModel, setSelectionModel) {
           }
         }}
         rows={table[i]}
-        columns={GetHeader(table[i][0])}
+        columns={GetHeader(table[i][0], type_table)}
         autoHeight={true}
         getRowHeight={() => 'auto'}
         getRowId={(row) => row[GetRowId(table[i])]}
