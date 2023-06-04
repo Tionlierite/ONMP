@@ -6,12 +6,14 @@ import Box from "@mui/material/Box";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { useDispatch, useSelector } from 'react-redux'
+import { addTablesResult } from '../../../shared/store/actions/tablesActions'
 
 import data from './Шкала оценки вероятности ТЭЛА (Revised Geneva Score).json'
 
 function GetHeader(arr_rows, type_table) {
   let columns = [], count = 0;
-  if (type_table == 1 || type_table == 4) {
+  if (type_table === 1 || type_table === 4) {
     for (let i in arr_rows) {
       let header;
       header = {    
@@ -24,7 +26,7 @@ function GetHeader(arr_rows, type_table) {
       columns.push(header);
     }
   }
-  if (type_table == 2) {
+  if (type_table === 2) {
     for (let i in arr_rows) {
       let header;
       if (count === 0) {
@@ -49,7 +51,7 @@ function GetHeader(arr_rows, type_table) {
       columns.push(header)
     }
   }
-  if (type_table == 3) {
+  if (type_table === 3) {
     for (let i in arr_rows) {
       let header;
       if (count === 0) {
@@ -451,69 +453,89 @@ function OneSubTable (table, i, type_table, selectionModel, setSelectionModel) {
   )
 }
 
+let val = ""
+
 function ShowResult(name, table, type_result, selectionModel, arr_selectionModel, res_table, part_name, age) {
+
+  const dispatch = useDispatch()
+	const hadleClick = event => {
+		dispatch(addTablesResult(val))
+	}
+
   if (part_name === "") part_name = name
   if (name === "Шкала Глазго (Glasgow Coma Scale)") {
     table = table[age]
   }
-  if (type_result === 2) return (
-    <div>
-      <h1>Результат: </h1>
-      <Stack spacing={3} direction="column" width={'50%'}>
-        <TextField
-          id="outlined-controlled"
-          label="Сумма"
-          value={selectionModel}
-          multiline
-        />
-        <ColorButton variant="contained">Сохранить</ColorButton>
-      </Stack>
-    </div>
-  )
-  if (type_result === 3) return (
-    <div>
-      <h1>Результат: </h1>
-      <Stack spacing={3} direction="column" width={'50%'}>
-        <TextField
-          id="outlined-controlled"
-          label="Сумма"
-          value={part_name + " - " + selectionModel + " баллов"}
-          multiline
-        />
-        <ColorButton variant="contained">Сохранить</ColorButton>
-      </Stack>
-    </div>
-  )
-  if (type_result === 4) return (
-    <div>
-      <h1>Результат: </h1>
+  if (type_result === 2) {
+    val = selectionModel
+    return (
+      <div>
+        <h1>Результат: </h1>
         <Stack spacing={3} direction="column" width={'50%'}>
           <TextField
             id="outlined-controlled"
             label="Сумма"
-            value={part_name + ": " + Number(SummRows(table, SelRowToArr(selectionModel), age)) + " % "  
-            + InterpretationPercent(table, SelRowToArr(selectionModel), age)}
+            value={val}
             multiline
           />
-          <ColorButton variant="contained">Сохранить</ColorButton>
+          <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
         </Stack>
-    </div>
-  )
-  if (name === "Шкала оценки вероятности ТЭЛА (Revised Geneva Score)") return (
-    <div>
-      <h1>Результат: </h1>
+      </div>
+    )
+  }
+  if (type_result === 3) {
+    val = part_name + " - " + selectionModel + " баллов"
+    return (
+      <div>
+        <h1>Результат: </h1>
         <Stack spacing={3} direction="column" width={'50%'}>
           <TextField
             id="outlined-controlled"
             label="Сумма"
-            value={part_name + ": " + Number(SummRows(table, SelRowToArr(selectionModel))) + " баллов - " 
-                  + GetTextRes(res_table, SummRows(table, SelRowToArr(selectionModel))).toLowerCase()}
+            value={val}
             multiline
           />
-          <ColorButton variant="contained">Сохранить</ColorButton>
+          <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
         </Stack>
-    </div>
-  )
+      </div>
+    )
+  }
+  if (type_result === 4) {
+    val = part_name + ": " + Number(SummRows(table, SelRowToArr(selectionModel), age)) + " % "  
+    + InterpretationPercent(table, SelRowToArr(selectionModel), age)
+    return (
+      <div>
+        <h1>Результат: </h1>
+          <Stack spacing={3} direction="column" width={'50%'}>
+            <TextField
+              id="outlined-controlled"
+              label="Сумма"
+              value={val}
+              multiline
+            />
+            <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
+          </Stack>
+      </div>
+    )
+  }
+  if (name === "Шкала оценки вероятности ТЭЛА (Revised Geneva Score)") {
+    val = part_name + ": " + Number(SummRows(table, SelRowToArr(selectionModel))) + " баллов - " 
+    + GetTextRes(res_table, SummRows(table, SelRowToArr(selectionModel))).toLowerCase()
+    return (
+      <div>
+        <h1>Результат: </h1>
+          <Stack spacing={3} direction="column" width={'50%'}>
+            <TextField
+              id="outlined-controlled"
+              label="Сумма"
+              value={val}
+              multiline
+            />
+            <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
+          </Stack>
+      </div>
+    )
+  }
   if (type_result === 5) {
     let arr_pol = [];
     for (let i in table) {
@@ -526,6 +548,7 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
         summ += Number(SummRows(table[arr_pol[i]], SelRowToArr(arr_selectionModel[j])))
       }
     }
+    val = part_name + ": " + summ + " баллов - " + GetTextRes(res_table, summ).toLowerCase()
     return (
       <div>
         <h1>Результат: </h1>
@@ -533,10 +556,10 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
             <TextField
               id="outlined-controlled"
               label="Сумма"
-              value={part_name + ": " + summ + " баллов - " + GetTextRes(res_table, summ).toLowerCase()}
+              value={val}
               multiline
             />
-            <ColorButton variant="contained">Сохранить</ColorButton>
+            <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
           </Stack>
       </div>
     )
@@ -553,6 +576,7 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
         summ += Number(SummRows(table[arr_pol[i]], SelRowToArr(arr_selectionModel[j])))
       }
     }
+    val = part_name + ": " + summ + " баллов"
     return (
       <div>
         <h1>Результат: </h1>
@@ -560,10 +584,10 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
             <TextField
               id="outlined-controlled"
               label="Сумма"
-              value={part_name + ": " + summ + " баллов"}
+              value={val}
               multiline
             />
-            <ColorButton variant="contained">Сохранить</ColorButton>
+            <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
           </Stack>
       </div>
     )
@@ -578,6 +602,8 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
     for (let i = 0; i < arr_pol.length; i++) {
       summ += SummRows(table[arr_pol[i]], SelRowToArr(arr_selectionModel[i]))
     }
+    val = part_name + ": " + summ + " баллов - " + GetTextRes(res_table, summ).toLowerCase() + " " 
+    + String(InterpretationBall(arr_pol, arr_selectionModel, age))
     if (name === "Шкала Глазго (Glasgow Coma Scale)") {
       return (
         <div>
@@ -586,15 +612,16 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
               <TextField
                 id="outlined-controlled"
                 label="Сумма"
-                value={part_name + ": " + summ + " баллов - " + GetTextRes(res_table, summ).toLowerCase() + " " + String(InterpretationBall(arr_pol, arr_selectionModel, age))}
+                value={val}
                 multiline
               />
-              <ColorButton variant="contained">Сохранить</ColorButton>
+              <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
             </Stack>
         </div>
       )
     }
     else {
+      val = part_name + ": " + summ + " баллов " + String(InterpretationBall(arr_pol, arr_selectionModel, age))
       return (
         <div>
           <h1>Результат: </h1>
@@ -602,10 +629,10 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
               <TextField
                 id="outlined-controlled"
                 label="Сумма"
-                value={part_name + ": " + summ + " баллов " + String(InterpretationBall(arr_pol, arr_selectionModel, age))}
+                value={val}
                 multiline
               />
-              <ColorButton variant="contained">Сохранить</ColorButton>
+              <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
             </Stack>
         </div>
       )
@@ -626,6 +653,8 @@ function SelectableDataGrid (props) {
   const [selectionModel8, setSelectionModel8] = useState([]);
   const [selectionModel9, setSelectionModel9] = useState([]);
   const [selectionModel10, setSelectionModel10] = useState([]);
+
+  const age_input = useSelector(state => state.age.initialAge)
 
   let arr_selectionModel = [selectionModel, selectionModel1, selectionModel2, selectionModel3, selectionModel4, selectionModel5, 
     selectionModel6, selectionModel7, selectionModel8, selectionModel9, selectionModel10]
@@ -679,7 +708,7 @@ function SelectableDataGrid (props) {
   }
 
   if (name === "Шкала Глазго (Glasgow Coma Scale)")
-    appState.age_column = "Взрослые и детей старше 4 лет"
+    appState.age_column = "Дети от 1 до 4 лет"
 
   if (name === "Определение площади ожогов у детей (по Lund и Browder)")
     appState.age_column = "5 лет"
