@@ -396,6 +396,9 @@ function OneSubTable (table, i, selectionModel, setSelectionModel) {
 
 function ShowResult(name, table, type_result, selectionModel, arr_selectionModel, res_table, part_name, age) {
   if (part_name === "") part_name = name
+  if (name === "Шкала Глазго (Glasgow Coma Scale)") {
+    table = table[age]
+  }
   if (type_result === 2) return (
     <div>
       <h1>Результат: </h1>
@@ -509,18 +512,16 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
     )
   }
   if (type_result === 7) {
+    let arr_pol = [];
+    for (let i in table) {
+      if (i !== "Интерпретация результата")
+        arr_pol.push(i)
+    }
+    let summ = 0;
+    for (let i = 0; i < arr_pol.length; i++) {
+      summ += SummRows(table[arr_pol[i]], SelRowToArr(arr_selectionModel[i]))
+    }
     if (name === "Шкала Глазго (Glasgow Coma Scale)") {
-      let arr_pol = [];
-      for (let i in table[age]) {
-        if (i !== "Интерпретация результата")
-          arr_pol.push(i)
-      }
-      let summ = 0;
-      for (let i = 0; i < arr_pol.length; i++) {
-        for (let j = 0; j < arr_selectionModel.length; j++) {
-          summ += Number(SummRows(table[age][arr_pol[i]], SelRowToArr(arr_selectionModel[j])))
-        }
-      }
       return (
         <div>
           <h1>Результат: </h1>
@@ -537,17 +538,6 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
       )
     }
     else {
-      let arr_pol = [];
-      for (let i in table) {
-        if (i !== "Интерпретация результата")
-          arr_pol.push(i)
-      }
-      let summ = 0;
-      for (let i = 0; i < arr_pol.length; i++) {
-        for (let j = 0; j < arr_selectionModel.length; j++) {
-          summ += Number(SummRows(table[arr_pol[i]], SelRowToArr(arr_selectionModel[j])))
-        }
-      }
       return (
         <div>
           <h1>Результат: </h1>
