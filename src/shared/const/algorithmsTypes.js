@@ -1,0 +1,1 @@
+export const ADD_ALGORITHM = 'ADD_ALGORITHM'
