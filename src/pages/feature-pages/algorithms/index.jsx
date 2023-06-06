@@ -339,8 +339,7 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                   <AccordionDetails>
                     <div>
                       <Typography variant="h6">Объем медицинской помощи</Typography>
-                      {diagnosisDetails.omps && diagnosisDetails.omps.length > 0 && 
-                      diagnosisDetails.omps.map((omp, index) => {
+                      {diagnosisDetails.omps && diagnosisDetails.omps.length > 0 && diagnosisDetails.omps.map((omp, index) => {
                            const key = `${mkbCode}_${diagnosisName}_${index}`;
                            const isChecked = selected.includes(omp);
 
@@ -369,9 +368,7 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                       <Typography variant="h6">Тактика</Typography>
                       {diagnosisDetails.tactics && diagnosisDetails.tactics.length > 0 && (
                         <div>
-                          {diagnosisDetails.tactics 
-                            .sort()
-                            .map((tactic, index) => (
+                          {diagnosisDetails.tactics.sort().map((tactic, index) => (
                               <Typography key={index}>{tactic}</Typography>
                             ))}
                         </div>
@@ -385,8 +382,7 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                           <Typography variant="h5">Поддиагнозы</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                          {Object.entries(diagnosisDetails.sub_diagnoses).map(
-                            ([subDiagName, subDiagData]) => (
+                          {Object.entries(diagnosisDetails.sub_diagnoses).map(([subDiagName, subDiagData]) => (
                               <Accordion
                                 key={subDiagName}
                                 expanded={expandedSubDiagnosis === subDiagName}
@@ -400,8 +396,7 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                                     <Typography variant="h6">
                                       Объем медицинской помощи
                                     </Typography>
-                                    {subDiagData.sub_diag_omps && subDiagData.sub_diag_omps.length > 0 && 
-                                    subDiagData.sub_diag_omps.map((omp, index) => {
+                                    {subDiagData.sub_diag_omps && subDiagData.sub_diag_omps.length > 0 && subDiagData.sub_diag_omps.map((omp, index) => {
                                         const key = `${mkbCode}_${diagnosisName}_${subDiagName}_${index}`;
                                         return (
                                           <div
