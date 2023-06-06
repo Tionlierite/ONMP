@@ -1,3 +1,11 @@
+## Installation
+Check if you have npm in cmd.exe:
+``npm -v``
+
+If not, you must install [node.js](https://nodejs.org/en) on your PC.
+
+Install all Project packages with: ``npm i``
+
 ## Available Scripts
 
 In the project directory, you can run:

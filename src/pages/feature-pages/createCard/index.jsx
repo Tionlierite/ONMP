@@ -8,7 +8,15 @@ import SecondAssistanceProvided from './secondAssistanceProv'
 const CreateCard = () => {
 	return (
 		<>
-			<h1>Редактировать карту</h1>
+			<h1
+				style={{
+					alignSelf: 'flex-start',
+					marginLeft: '600px',
+					fontFamily: 'Roboto'
+				}}
+			>
+				Редактировать карту
+			</h1>
 			<AgeElement />
 			<WeightElement />
 			<StatusLocalis />
