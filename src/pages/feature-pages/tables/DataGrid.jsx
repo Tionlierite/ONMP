@@ -171,7 +171,7 @@ function InterpretationPercent(table, selected_str, age) {
     for (let j in table[i]) {
       for (let z in selected_str) {
         if (table[i][j] === selected_str[z]) {
-          res_string += table[i][sum_col_end] + "% - " + table[i][sum_col_start].toLowerCase() + ", ";
+          res_string += table[i][sum_col_end] + "% - " + String(table[i][sum_col_start]).toLowerCase() + ", ";
         }
       }
     }
@@ -226,9 +226,12 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
   selectionModel4, setSelectionModel4, selectionModel5, setSelectionModel5, selectionModel6, setSelectionModel6, 
   selectionModel7, setSelectionModel7, selectionModel8, setSelectionModel8, selectionModel9, setSelectionModel9, 
   selectionModel10, setSelectionModel10) {
+  if (age_column.substring(age_column.length - 31, age_column.length) == "таблица не поддерживает возраст") {
+    age_column = ""
+  }
   if (type_table === 1 || type_table === 2) return (
     <div>
-      <h3>{age_column}</h3>
+      <h3>Раздел возраста - {age_column}</h3>
       <StyledDataGrid
         rows={table}
         columns={GetHeader(table[0], type_table)}
@@ -249,7 +252,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
   if (type_table === 3) {
     return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         <StyledDataGrid
           rows={table}
           columns={GetHeader(table[0], type_table)}
@@ -280,20 +283,20 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     }
     if (arr_pol.length === 1) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
       </div>
     )
     if (arr_pol.length === 2) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
       </div>
     )
     if (arr_pol.length === 3) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -301,7 +304,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 4) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -310,7 +313,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 5) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -320,7 +323,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 6) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -331,7 +334,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 7) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -343,7 +346,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 8) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -356,7 +359,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 9) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -370,7 +373,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 10) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -385,7 +388,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 11) return (
       <div>
-        <h3>{age_column}</h3>
+        <h3>Раздел возраста - {age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -635,13 +638,12 @@ function SelectableDataGrid (props) {
   const [selectionModel9, setSelectionModel9] = useState([]);
   const [selectionModel10, setSelectionModel10] = useState([]);
 
-  const age_input = useSelector(state => state.age.initialAge)
-
   let arr_selectionModel = [selectionModel, selectionModel1, selectionModel2, selectionModel3, selectionModel4, selectionModel5, 
     selectionModel6, selectionModel7, selectionModel8, selectionModel9, selectionModel10]
 
   // let name = "Шкала комы FOUR";
   let name = props.name_of_table;
+  let age_input = useSelector(state => state.age.initialAge)
 
   const [appState, setAppState] = useState({
     loading: false,
@@ -656,7 +658,7 @@ function SelectableDataGrid (props) {
   });
 
   useEffect(() => {
-    fetch("https://apu-hd.fun/api/v1/differentials_tables/get_diff_tables/?name=" + name)
+    fetch("https://apu-hd.fun/api/v1/differentials_tables/get_diff_tables/?name=" + name + "&age=" + age_input)
       .then((res) => res.json())
       .then(
         (repos) => {
@@ -688,11 +690,11 @@ function SelectableDataGrid (props) {
     }
   }
 
-  if (name === "Шкала Глазго (Glasgow Coma Scale)")
-    appState.age_column = "Дети от 1 до 4 лет"
+  // if (name === "Шкала Глазго (Glasgow Coma Scale)")
+  //   appState.age_column = "Дети от 1 до 4 лет"
 
-  if (name === "Определение площади ожогов у детей (по Lund и Browder)")
-    appState.age_column = "5 лет"
+  // if (name === "Определение площади ожогов у детей (по Lund и Browder)")
+  //   appState.age_column = "5 лет"
 
   if (appState.error) {
     return <p> Error {appState.error.message} </p>
