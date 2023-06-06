@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
+import '../styles/home.css'
 
 const Home = () => {
 	const [modal, setModal] = useState(false)
@@ -52,10 +53,10 @@ const Home = () => {
 				className='header'
 				style={{ display: 'flex', justifyContent: 'space-between' }}
 			>
-				<h1 style={{ alignSelf: 'flex-start' }}>Карты</h1>
+				<h1 className='cards'>Карты</h1>
 				<Button
 					variant='contained'
-					style={{ alignSelf: 'flex-end' }}
+					style={{ alignSelf: 'flex-end', marginRight: '250px' }}
 					onClick={handleModalButtonClick}
 					disabled={true}
 				>
@@ -64,16 +65,19 @@ const Home = () => {
 			</div>
 			<div className='cards-folders-container'>
 				<div className='done-cards-container'>
-					<h3>Готовые</h3>
-					<div className='done-cards-list'></div>
-					<div className='card' id='25212' style={{ display: 'flex' }}>
-						<p style={{ fontWeight: 'bold' }}>Карта 23</p>
-						<p style={{ marginLeft: '10px' }}>Все хорошо</p>
-						<p style={{ marginLeft: '250px' }}>25.04.2023</p>
+					<h3 className='ready'>Готовые</h3>
+					<div className='done-cards-list'>
+						<div className='card' id='25212' style={{ display: 'flex' }}>
+							<p style={{ fontWeight: 'bold' }}>Карта 23</p>
+							<p style={{ marginLeft: '10px' }}>Бригада №285</p>
+							<p style={{ marginLeft: '250px' }}>25.04.2023</p>
+							<Link to='/createCard'>
+								<Button variant='contained' className='edit-button'>
+									Редактировать
+								</Button>
+							</Link>
+						</div>
 					</div>
-					<Link to='/createCard'>
-						<button className='edit-button'>Редактировать</button>
-					</Link>
 				</div>
 				<div className='undone-cards-container'>
 					<h3>Незавершенные</h3>

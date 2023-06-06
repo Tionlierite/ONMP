@@ -1,25 +1,38 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import '../styles/navBar.css'
 
 const NavBar = () => {
 	return (
-		<ul>
-			<li style={{ display: 'inline', margin: 5 }}>
-				<Link to='/'>Домой</Link>
-			</li>
-			<li style={{ display: 'inline', margin: 5 }}>
-				<Link to='/algorithms'>Алгоритмы</Link>
-			</li>
-			<li style={{ display: 'inline', margin: 5 }}>
-				<Link to='/dictionary'>Справочник</Link>
-			</li>
-			<li style={{ display: 'inline', margin: 5 }}>
-				<Link to='/calculator'>Калькулятор</Link>
-			</li>
-			<li style={{ display: 'inline', margin: 5 }}>
-				<Link to='/tables'>Таблицы</Link>
-			</li>
-		</ul>
+		<div className='navigation-bar'>
+			<div className='navigation-bar-logo'>
+				<Link to='/'>
+					<img src={require('../styles/logo.png')} alt='logo' />
+				</Link>
+			</div>
+			<ul className='navigation-bar-models-items'>
+				<li>
+					<Link to='/algorithms' className='algorithm-label'>
+						Алгоритмы
+					</Link>
+				</li>
+				<li>
+					<Link to='/dictionary' className='dictionary-label'>
+						Справочник
+					</Link>
+				</li>
+				<li>
+					<Link to='/calculator' className='calculator-label'>
+						Калькулятор
+					</Link>
+				</li>
+				<li>
+					<Link to='/tables' className='tables-label'>
+						Таблицы
+					</Link>
+				</li>
+			</ul>
+		</div>
 	)
 }
 
