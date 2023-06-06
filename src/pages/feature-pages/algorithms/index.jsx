@@ -1,24 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  Checkbox,
-  TextField,
-  Grid,
-  IconButton,
-  Button,
-  InputAdornment,
-  Snackbar,
-} from '@mui/material';
+import {Accordion,AccordionSummary, AccordionDetails} from '@mui/material';
+import {Typography, Checkbox, TextField, Grid, IconButton, Button, InputAdornment, Snackbar} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SearchIcon from '@mui/icons-material/Search';
-import AlgorithmDialogAdd from './AlgorithmDialogAdd';
 import { useDispatch} from 'react-redux'
 import { addTablesResult } from '../../../shared/store/actions/algorithmsActions.js';
 import { useHistory } from "react-router-dom";
-//import AlgorithmDialogDelete from './AlgorithmDialogDelete';
+import AlgorithmDialogAdd from './AlgorithmDialogAdd';
 
 
 const AlgorithmsPage = () => {
@@ -32,7 +20,6 @@ const AlgorithmsPage = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [selectedHelp, setSelectedHelp] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
- // const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [algorithmForm, setAlgorithmForm] = useState({
     mkbCode: '',
     diagnosis: '',
@@ -46,30 +33,7 @@ const AlgorithmsPage = () => {
         recommendation: '',
       },
     ],
-  }); // Добавлено
-
- /*const handleCheckboxChange = (mkbCode, diagnosisName, ompIndex, checked) => {
-    setSelectedOMPs((prevState) => {
-      const key = `${mkbCode}_${diagnosisName}_${ompIndex}`;
-      return {
-        ...prevState,
-        [key]: checked,
-      };
-    });
-  };
-
-  const handleSubCheckboxChange = (mkbCode, diagnosisName, subDiagName, ompIndex, checked) => {
-    setSelectedSubOMPs((prevState) => {
-      const key = `${mkbCode}_${diagnosisName}_${subDiagName}_${ompIndex}`;
-      return {
-        ...prevState,
-        [key]: checked,
-      };
-    });
-  };
-  */ 
-
-  
+  }); 
 
   useEffect(() => {
     fetchData();
@@ -225,8 +189,6 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
     e.preventDefault();
     console.log(algorithmForm);
     
-  
-    // Добавляем новый алгоритм в массив filteredData
     const newAlgorithm = {
       [algorithmForm.mkbCode]: {
         [algorithmForm.diagnosis]: {
@@ -263,8 +225,7 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
         ],
       });
     };
-    
-    // Вызов функции clearForm для очистки значений полей формы
+
     clearForm();
     setDialogOpen(false);
   };
@@ -276,7 +237,6 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
       return {
         ...prevState,
           [value]: checked,
-     //   [`${mkbCode}_${diagnosisName}_${ompIndex}`]: checked,
       };
     });
   };
@@ -288,7 +248,6 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
       return {
         ...prevState,
           [value]: checked,
-     //  [`${mkbCode}_${diagnosisName}_${subDiagName}_${ompIndex}`]: checked,
       };
     });
   };
@@ -380,7 +339,8 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                   <AccordionDetails>
                     <div>
                       <Typography variant="h6">Объем медицинской помощи</Typography>
-                      {diagnosisDetails.omps && diagnosisDetails.omps.length > 0 && diagnosisDetails.omps.map((omp, index) => {
+                      {diagnosisDetails.omps && diagnosisDetails.omps.length > 0 && 
+                      diagnosisDetails.omps.map((omp, index) => {
                            const key = `${mkbCode}_${diagnosisName}_${index}`;
                            const isChecked = selected.includes(omp);
 
@@ -390,7 +350,6 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                               style={{ display: 'flex', alignItems: 'center' }}
                             >
                               <Checkbox
-                             //   checked={selectedOMPs[key] || false}
                                 checked={isChecked}
                                 onChange={(event) =>
                                   handleCheckboxChange(
@@ -410,7 +369,7 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                       <Typography variant="h6">Тактика</Typography>
                       {diagnosisDetails.tactics && diagnosisDetails.tactics.length > 0 && (
                         <div>
-                          {diagnosisDetails.tactics
+                          {diagnosisDetails.tactics 
                             .sort()
                             .map((tactic, index) => (
                               <Typography key={index}>{tactic}</Typography>
@@ -441,11 +400,9 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                                     <Typography variant="h6">
                                       Объем медицинской помощи
                                     </Typography>
-                                    {subDiagData.sub_diag_omps &&
-                                      subDiagData.sub_diag_omps.length > 0 &&
-                                      subDiagData.sub_diag_omps.map((omp, index) => {
+                                    {subDiagData.sub_diag_omps && subDiagData.sub_diag_omps.length > 0 && 
+                                    subDiagData.sub_diag_omps.map((omp, index) => {
                                         const key = `${mkbCode}_${diagnosisName}_${subDiagName}_${index}`;
-                                      // const key = subDiagData.sub_diag_omps[index];
                                         return (
                                           <div
                                             key={key}
@@ -464,9 +421,7 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                                               }
                                             />
                                             <Typography style={{ marginLeft: '8px' }}>
-                                              {omp !== null
-                                                ? omp
-                                                : 'Объема медицинской помощи не существует'}
+                                              {omp !== null ? omp : 'Объема медицинской помощи не существует'}
                                             </Typography>
                                           </div>
                                         );
