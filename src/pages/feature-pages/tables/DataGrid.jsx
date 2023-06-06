@@ -192,10 +192,24 @@ function InterpretationBall(arr_pol, arr_selectionModel, age) {
 }
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+  borderColor: 'black',
   '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
     borderRight: `1px solid ${
       theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'
-    }`,
+    }`
+  },
+  "& .MuiDataGrid-columnHeaderTitle": {
+    whiteSpace: "normal",
+    lineHeight: "normal"
+  },
+  "& .MuiDataGrid-columnHeader": {
+    // Forced to use important since overriding inline styles
+    height: "unset !important"
+  },
+  "& .MuiDataGrid-columnHeaders": {
+    // Forced to use important since overriding inline styles
+    maxHeight: "168px !important",
+    backgroundColor: "#cbf6fb"
   }
 }));
 
@@ -216,20 +230,6 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     <div>
       <h3>{age_column}</h3>
       <StyledDataGrid
-        sx={{
-          "& .MuiDataGrid-columnHeaderTitle": {
-            whiteSpace: "normal",
-            lineHeight: "normal"
-          },
-          "& .MuiDataGrid-columnHeader": {
-            // Forced to use important since overriding inline styles
-            height: "unset !important"
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            // Forced to use important since overriding inline styles
-            maxHeight: "168px !important"
-          }
-        }}
         rows={table}
         columns={GetHeader(table[0], type_table)}
         autoHeight={true}
@@ -251,20 +251,6 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
       <div>
         <h3>{age_column}</h3>
         <StyledDataGrid
-          sx={{
-            "& .MuiDataGrid-columnHeaderTitle": {
-              whiteSpace: "normal",
-              lineHeight: "normal"
-            },
-            "& .MuiDataGrid-columnHeader": {
-              // Forced to use important since overriding inline styles
-              height: "unset !important"
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              // Forced to use important since overriding inline styles
-              maxHeight: "168px !important"
-            }
-          }}
           rows={table}
           columns={GetHeader(table[0], type_table)}
           autoHeight={true}
@@ -421,20 +407,6 @@ function OneSubTable (table, i, type_table, selectionModel, setSelectionModel) {
     <div>
       <h3>{i}</h3>
       <StyledDataGrid
-        sx={{
-          "& .MuiDataGrid-columnHeaderTitle": {
-            whiteSpace: "normal",
-            lineHeight: "normal"
-          },
-          "& .MuiDataGrid-columnHeader": {
-            // Forced to use important since overriding inline styles
-            height: "unset !important"
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            // Forced to use important since overriding inline styles
-            maxHeight: "168px !important"
-          }
-        }}
         rows={table[i]}
         columns={GetHeader(table[i][0], type_table)}
         autoHeight={true}
@@ -471,32 +443,35 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
     return (
       <div>
         <h1>Результат: </h1>
-        <Stack spacing={3} direction="column" width={'50%'}>
+        <Stack spacing={3} direction="column" width={'100%'}>
           <TextField
             id="outlined-controlled"
             label="Сумма"
             value={val}
             multiline
           />
-          <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
         </Stack>
+        <h1></h1>
+        <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
   }
   if (type_result === 3) {
     val = part_name + " - " + selectionModel + " баллов"
+    if (String(selectionModel) == "") val = ""
     return (
       <div>
         <h1>Результат: </h1>
-        <Stack spacing={3} direction="column" width={'50%'}>
+        <Stack spacing={3} direction="column" width={'100%'}>
           <TextField
             id="outlined-controlled"
             label="Сумма"
             value={val}
             multiline
           />
-          <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
         </Stack>
+        <h1></h1>
+        <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
   }
@@ -506,15 +481,16 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
     return (
       <div>
         <h1>Результат: </h1>
-          <Stack spacing={3} direction="column" width={'50%'}>
+          <Stack spacing={3} direction="column" width={'100%'}>
             <TextField
               id="outlined-controlled"
               label="Сумма"
               value={val}
               multiline
             />
-            <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
           </Stack>
+          <h1></h1>
+          <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
   }
@@ -524,15 +500,16 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
     return (
       <div>
         <h1>Результат: </h1>
-          <Stack spacing={3} direction="column" width={'50%'}>
+          <Stack spacing={3} direction="column" width={'100%'}>
             <TextField
               id="outlined-controlled"
               label="Сумма"
               value={val}
               multiline
             />
-            <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
           </Stack>
+          <h1></h1>
+          <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
   }
@@ -552,15 +529,16 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
     return (
       <div>
         <h1>Результат: </h1>
-          <Stack spacing={3} direction="column" width={'50%'}>
+          <Stack spacing={3} direction="column" width={'100%'}>
             <TextField
               id="outlined-controlled"
               label="Сумма"
               value={val}
               multiline
             />
-            <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
           </Stack>
+          <h1></h1>
+          <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
   }
@@ -580,15 +558,16 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
     return (
       <div>
         <h1>Результат: </h1>
-          <Stack spacing={3} direction="column" width={'50%'}>
+          <Stack spacing={3} direction="column" width={'100%'}>
             <TextField
               id="outlined-controlled"
               label="Сумма"
               value={val}
               multiline
             />
-            <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
           </Stack>
+          <h1></h1>
+          <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
   }
@@ -608,15 +587,16 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
       return (
         <div>
           <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
+            <Stack spacing={3} direction="column" width={'100%'}>
               <TextField
                 id="outlined-controlled"
                 label="Сумма"
                 value={val}
                 multiline
               />
-              <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
             </Stack>
+            <h1></h1>
+            <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
         </div>
       )
     }
@@ -625,15 +605,16 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
       return (
         <div>
           <h1>Результат: </h1>
-            <Stack spacing={3} direction="column" width={'50%'}>
+            <Stack spacing={3} direction="column" width={'100%'}>
               <TextField
                 id="outlined-controlled"
                 label="Сумма"
                 value={val}
                 multiline
               />
-              <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
             </Stack>
+            <h1></h1>
+            <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
         </div>
       )
     }

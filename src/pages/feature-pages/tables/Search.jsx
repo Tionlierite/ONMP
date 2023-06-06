@@ -59,7 +59,6 @@ function CustomizedInputBase() {
         <SearchIcon />
       </IconButton>
     </Paper>
-    <p>(╮°-°)╮┳━━┳ ( ╯°□°)╯ ┻━━┻ </p>
     <List >
       {searchResults.map(item => (
        <ListItem style={{margin: -9 }} >
