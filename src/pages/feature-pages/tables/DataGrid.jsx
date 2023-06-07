@@ -9,8 +9,6 @@ import Stack from '@mui/material/Stack';
 import { useDispatch, useSelector } from 'react-redux'
 import { addTablesResult } from '../../../shared/store/actions/tablesActions'
 
-import data from './Шкала оценки вероятности ТЭЛА (Revised Geneva Score).json'
-
 function GetHeader(arr_rows, type_table) {
   let columns = [], count = 0;
   if (type_table === 1 || type_table === 4) {
@@ -103,7 +101,7 @@ function GetRowId(arr_rows) {
 }
 
 function SelRowToArr (x) {
-  let arr = [];
+  let arr;
   arr = x;
   return arr;
 }
@@ -137,9 +135,9 @@ function SummRows(table, selected_str, age) {
 function GetTextRes(res_rows, x) {
   for (let i = 0; i < res_rows.length; i++) {
     for (let j in res_rows[i]) {
-      if (res_rows[i][j] == x) {
+      if (String(res_rows[i][j]) === String(x)) {
         for (let z in res_rows[i]) {
-          if (z != j) return res_rows[i][z];
+          if (z !== j) return res_rows[i][z];
         }
       }
     }
@@ -181,7 +179,7 @@ function InterpretationPercent(table, selected_str, age) {
   return res_string
 }
 
-function InterpretationBall(arr_pol, arr_selectionModel, age) {
+function InterpretationBall(arr_pol, arr_selectionModel) {
   let res_string = "("
   for (let i = 0; i < arr_pol.length; i++) {
     res_string += String(arr_pol[i]).toLowerCase() + " - " + String(arr_selectionModel[i]).toLowerCase() + ", "
@@ -221,17 +219,21 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-function ShowTable(name, table, type_table, age_column, selectionModel, setSelectionModel, 
+function ShowTable(name, table, type_table, age, selectionModel, setSelectionModel, 
   selectionModel1, setSelectionModel1, selectionModel2, setSelectionModel2, selectionModel3, setSelectionModel3, 
   selectionModel4, setSelectionModel4, selectionModel5, setSelectionModel5, selectionModel6, setSelectionModel6, 
   selectionModel7, setSelectionModel7, selectionModel8, setSelectionModel8, selectionModel9, setSelectionModel9, 
   selectionModel10, setSelectionModel10) {
-  if (age_column.substring(age_column.length - 31, age_column.length) == "таблица не поддерживает возраст") {
+  let age_column = "";
+  if (age.substring(age.length - 31, age.length) === "таблица не поддерживает возраст") {
     age_column = ""
+  }
+  else {
+    age_column = "Раздел возраста - " + age
   }
   if (type_table === 1 || type_table === 2) return (
     <div>
-      <h3>Раздел возраста - {age_column}</h3>
+      <h3>{age_column}</h3>
       <StyledDataGrid
         rows={table}
         columns={GetHeader(table[0], type_table)}
@@ -252,7 +254,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
   if (type_table === 3) {
     return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         <StyledDataGrid
           rows={table}
           columns={GetHeader(table[0], type_table)}
@@ -274,7 +276,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
   }
   if (type_table === 4) {
     if (name === "Шкала Глазго (Glasgow Coma Scale)") {
-      table = table[age_column]
+      table = table[age]
     }
     let arr_pol = []
     for (let i in table)  {
@@ -283,20 +285,20 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     }
     if (arr_pol.length === 1) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
       </div>
     )
     if (arr_pol.length === 2) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
       </div>
     )
     if (arr_pol.length === 3) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -304,7 +306,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 4) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -313,7 +315,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 5) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -323,7 +325,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 6) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -334,7 +336,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 7) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -346,7 +348,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 8) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -359,7 +361,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 9) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -373,7 +375,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 10) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -388,7 +390,7 @@ function ShowTable(name, table, type_table, age_column, selectionModel, setSelec
     )
     if (arr_pol.length === 11) return (
       <div>
-        <h3>Раздел возраста - {age_column}</h3>
+        <h3>{age_column}</h3>
         {OneSubTable(table, arr_pol[0], type_table, selectionModel, setSelectionModel)}
         {OneSubTable(table, arr_pol[1], type_table, selectionModel1, setSelectionModel1)}
         {OneSubTable(table, arr_pol[2], type_table, selectionModel2, setSelectionModel2)}
@@ -433,7 +435,7 @@ let val = ""
 function ShowResult(name, table, type_result, selectionModel, arr_selectionModel, res_table, part_name, age) {
 
   const dispatch = useDispatch()
-	const hadleClick = event => {
+	const hadleClick = () => {
 		dispatch(addTablesResult(val))
 	}
 
@@ -454,14 +456,14 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
             multiline
           />
         </Stack>
-        <h1></h1>
+        <h1> </h1>
         <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
   }
   if (type_result === 3) {
     val = part_name + " - " + selectionModel + " баллов"
-    if (String(selectionModel) == "") val = ""
+    if (String(selectionModel) === "") val = ""
     return (
       <div>
         <h1>Результат: </h1>
@@ -473,7 +475,7 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
             multiline
           />
         </Stack>
-        <h1></h1>
+        <h1> </h1>
         <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
@@ -492,7 +494,7 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
               multiline
             />
           </Stack>
-          <h1></h1>
+          <h1> </h1>
           <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
@@ -511,13 +513,13 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
               multiline
             />
           </Stack>
-          <h1></h1>
+          <h1> </h1>
           <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
   }
   if (type_result === 5) {
-    let arr_pol = [];
+    let arr_pol;
     for (let i in table) {
       if (i !== "Интерпретация результата")
         arr_pol.push(i)
@@ -540,7 +542,7 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
               multiline
             />
           </Stack>
-          <h1></h1>
+          <h1> </h1>
           <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
@@ -569,7 +571,7 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
               multiline
             />
           </Stack>
-          <h1></h1>
+          <h1> </h1>
           <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
       </div>
     )
@@ -598,7 +600,7 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
                 multiline
               />
             </Stack>
-            <h1></h1>
+            <h1> </h1>
             <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
         </div>
       )
@@ -616,7 +618,7 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
                 multiline
               />
             </Stack>
-            <h1></h1>
+            <h1> </h1>
             <ColorButton variant="contained" onClick={hadleClick}>Сохранить</ColorButton>
         </div>
       )
@@ -680,7 +682,7 @@ function SelectableDataGrid (props) {
         }
         );
       });
-  }, [setAppState]);
+  });
 
   if (name === "Шкала оценки вероятности ТЭЛА (Revised Geneva Score)") {
     for (let i in appState.items) {
