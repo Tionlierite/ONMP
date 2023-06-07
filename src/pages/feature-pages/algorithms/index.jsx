@@ -253,8 +253,7 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
   };
   const dispatch = useDispatch()
   const history = useHistory()
-  
-  let selected = [];
+
 
   const handleSave = () => {
     const selectedHelps = Object.entries(selectedOMPs)
@@ -340,16 +339,14 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                     <div>
                       <Typography variant="h6">Объем медицинской помощи</Typography>
                       {diagnosisDetails.omps && diagnosisDetails.omps.length > 0 && diagnosisDetails.omps.map((omp, index) => {
-                           const key = `${mkbCode}_${diagnosisName}_${index}`;
-                           const isChecked = selected.includes(omp);
-
+                         const value = diagnosisDetails.omps[index];
                           return (
                             <div
-                              key={key}
+                              key={value}
                               style={{ display: 'flex', alignItems: 'center' }}
                             >
                               <Checkbox
-                                checked={isChecked}
+                                checked={selectedOMPs[value] || false}
                                 onChange={(event) =>
                                   handleCheckboxChange(
                                     mkbCode,
@@ -397,14 +394,14 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
                                       Объем медицинской помощи
                                     </Typography>
                                     {subDiagData.sub_diag_omps && subDiagData.sub_diag_omps.length > 0 && subDiagData.sub_diag_omps.map((omp, index) => {
-                                        const key = `${mkbCode}_${diagnosisName}_${subDiagName}_${index}`;
+                                        const value = subDiagData.sub_diag_omps[index];
                                         return (
                                           <div
-                                            key={key}
+                                            key={value}
                                             style={{ display: 'flex', alignItems: 'center' }}
                                           >
                                             <Checkbox
-                                              checked={selectedSubOMPs[key] || false}
+                                              checked={selectedSubOMPs[value] || false}
                                               onChange={(event) =>
                                                 handleSubCheckboxChange(
                                                   mkbCode,
@@ -439,8 +436,8 @@ const handleAddSubDiagnosisOMPs = (subDiagnosisIndex) => {
         </Accordion>
       ))}
 
-    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-      <Button variant="contained" color="primary" onClick={handleSave}>
+    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px'}}>
+      <Button variant = 'contained' style = {{backgroundColor: 'rgba(39, 180, 154, .6)', color: 'black'}}  onClick={handleSave}>
         Сохранить
       </Button>
     </div>

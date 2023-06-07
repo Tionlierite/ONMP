@@ -185,10 +185,10 @@ const AlgorithmDialogAdd = ({
           </IconButton>
         </DialogContent>
         <DialogActions>
-        <Button onClick={handleDialogClose} color="primary">
+        <Button onClick={handleDialogClose} color="primary" style = {{backgroundColor: 'rgba(39, 180, 154, .6)', color: 'black'}}>
           Отмена
         </Button>
-        <Button onClick={handleSubmit} color="primary">
+        <Button onClick={handleSubmit} color="primary" style = {{backgroundColor: 'rgba(39, 180, 154, .6)', color: 'black'}}>
           Сохранить
         </Button>
       </DialogActions>
