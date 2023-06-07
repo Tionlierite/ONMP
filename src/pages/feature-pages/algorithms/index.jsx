@@ -79,10 +79,15 @@ const AlgorithmsPage = () => {
   };
 
   const filteredData = data
-    ? Object.entries(data).filter(([mkbCode]) =>
+  ? Object.entries(data)
+      .filter(([mkbCode]) =>
         mkbCode.toLowerCase().includes(searchQuery.toLowerCase())
       )
-    : [];
+      .sort(([mkbCode1], [mkbCode2]) =>
+        mkbCode1.localeCompare(mkbCode2)
+      )
+  : [];
+
 
   const handleAddOMPs = () => {
     setAlgorithmForm((prevAlgorithm) => {
