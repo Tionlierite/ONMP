@@ -519,7 +519,7 @@ function ShowResult(name, table, type_result, selectionModel, arr_selectionModel
     )
   }
   if (type_result === 5) {
-    let arr_pol;
+    let arr_pol = [];
     for (let i in table) {
       if (i !== "Интерпретация результата")
         arr_pol.push(i)
