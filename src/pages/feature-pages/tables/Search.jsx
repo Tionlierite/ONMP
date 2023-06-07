@@ -63,7 +63,7 @@ function CustomizedInputBase() {
       {searchResults.map(item => (
        <ListItem style={{margin: -9 }} >
           <StyledButton variant="outlined">
-            <img src={item_logo} width={'40'} style={{margin: 5 }} />
+            <img src={item_logo} width={'40'} style={{margin: 5 }}  alt = "Иконка"/>
             <Link to={{ pathname: "/tables/WorkWithTable", state: item}} style={linkStyle}>{item}</Link>
           </StyledButton>
         </ListItem>

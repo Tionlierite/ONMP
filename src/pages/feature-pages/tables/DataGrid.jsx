@@ -150,9 +150,12 @@ function InterpretationPercent(table, selected_str, age) {
   let sum_col_start = 0;
   let sum_col_end = 0;
   for (let i in table) {
+    let input = 0;
     for (let j in table[i]) {
-      sum_col_start = j;
-      break;
+      if (input === 0) {
+        sum_col_start = j;
+        input = 1;
+      }
     }
   }
   if (age != null) {
@@ -224,7 +227,7 @@ function ShowTable(name, table, type_table, age, selectionModel, setSelectionMod
   selectionModel4, setSelectionModel4, selectionModel5, setSelectionModel5, selectionModel6, setSelectionModel6, 
   selectionModel7, setSelectionModel7, selectionModel8, setSelectionModel8, selectionModel9, setSelectionModel9, 
   selectionModel10, setSelectionModel10) {
-  let age_column = "";
+  let age_column;
   if (age.substring(age.length - 31, age.length) === "таблица не поддерживает возраст") {
     age_column = ""
   }
