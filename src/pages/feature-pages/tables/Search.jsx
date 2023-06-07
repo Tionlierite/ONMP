@@ -67,7 +67,6 @@ function CustomizedInputBase() {
             <Link to={{ pathname: "/tables/WorkWithTable", state: item}} style={linkStyle}>{item}</Link>
           </StyledButton>
         </ListItem>
-        
       ))}
     </List>
     </div>
