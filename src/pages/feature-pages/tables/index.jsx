@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
+import CustomizedInputBase from "./Search.jsx";
 
-const Tables = () => {
-	return <h1>Tables</h1>
+class App extends React.Component {
+	render() { return (
+			<div>
+        		<CustomizedInputBase />
+			</div>
+		);
+	}
 }
-
-export default Tables
+export default App;
