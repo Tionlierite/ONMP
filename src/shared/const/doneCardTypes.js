@@ -1,0 +1,2 @@
+export const ADD_DONE_CARD = 'ADD_DONE_CARD'
+export const DELETE_DONE_CARD = 'DELETE_DONE_CARD'

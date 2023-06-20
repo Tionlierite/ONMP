@@ -1,16 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../styles/navBar.css'
+import '../ui/navBar.css'
 
-const NavBar = () => {
+export function NavBar() {
 	return (
 		<div className='navigation-bar'>
 			<div className='navigation-bar-logo'>
-				<Link to='/'>
-					<img src={require('../styles/logo.png')} alt='logo' />
+				<Link to='/card-list'>
+					<img src={require('../ui/logo.png')} alt='logo' />
 				</Link>
 			</div>
-			<ul className='navigation-bar-models-items'>
+			<ul className='navigation-bar-models-items mt-3'>
 				<li>
 					<Link to='/algorithms' className='algorithm-label'>
 						Алгоритмы
@@ -35,5 +35,3 @@ const NavBar = () => {
 		</div>
 	)
 }
-
-export default NavBar
